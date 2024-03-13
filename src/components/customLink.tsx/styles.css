@@ -1,0 +1,31 @@
+.navbar-link-block {
+    display: flex;
+    height: 80px;
+    padding: 0 16px;
+    color: #1D1F22;
+    font-family: Raleway, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    align-items: center;
+  }
+
+  @media screen and (max-width: 960px){
+    .nav-list {
+      display: flex;
+      padding-left: 10vw;
+      cursor: pointer;
+    }
+  
+    .currency-icons {
+      padding-right: 12.5vw;
+    }
+  
+    .number {
+      right: 10.5vw;
+    }
+  
+    .navbar-link-block {
+      padding: 0 2.5vw;
+    }
+  }
