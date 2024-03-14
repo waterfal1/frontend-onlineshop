@@ -5,10 +5,10 @@ import { GoodId } from "../../models/SelectedGood";
 import {
   categoryVar,
   currencyVar,
-  goodsVar,
+  productsVar,
   selectedGoodIdVar,
 } from "../../cache";
-import { Good } from "../../models/Good";
+import { Product } from "../../models/Product";
 
 function setCategory(categoryVar: ReactiveVar<Category>) {
   return (category: Category) => {
@@ -29,17 +29,19 @@ function setGoodId(selectedGoodIdVar: ReactiveVar<GoodId>) {
   };
 }
 
-function addGood(goodsVar: ReactiveVar<{ goods: Good[] }>) {
-  return (good: Good) => {
-    const allGoods = goodsVar();
-    goodsVar({ goods: allGoods.goods.concat(good) });
+function addGood(productsVar: ReactiveVar<{ products: Product[] }>) {
+  return (good: Product) => {
+    const allGoods = productsVar();
+    productsVar({ products: allGoods.products.concat(good) });
   };
 }
 
-function deleteGood(goodsVar: ReactiveVar<{ goods: Good[] }>) {
-  return (good: Good) => {
-    const allGoods = goodsVar();
-    goodsVar({ goods: allGoods.goods.filter((g) => g.id === good.id) });
+function deleteGood(productsVar: ReactiveVar<{ products: Product[] }>) {
+  return (good: Product) => {
+    const allGoods = productsVar();
+    productsVar({
+      products: allGoods.products.filter((g) => g.id === good.id),
+    });
   };
 }
 
@@ -47,6 +49,6 @@ export const mutations = {
   setCategory: setCategory(categoryVar),
   setCurrency: setCurrency(currencyVar),
   setGoodId: setGoodId(selectedGoodIdVar),
-  addGood: addGood(goodsVar),
-  deleteGood: deleteGood(goodsVar),
+  addGood: addGood(productsVar),
+  deleteGood: deleteGood(productsVar),
 };

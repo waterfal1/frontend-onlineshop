@@ -18,8 +18,8 @@ export const GET_LOCAL_CURRENCY = gql`
 
 export const GET_LOCAL_GOODS = gql`
   query GetGoods {
-    goods @client {
-      goods
+    products @client {
+      products
     }
   }
 `;
@@ -34,7 +34,7 @@ export const GET_LOCAL_SELECTED_GOOD_ID = gql`
 
 export const GET_ALL_GOODS = gql`
   query GetAllGoods {
-    goods @client {
+    products @client {
       id
       name
       inStock

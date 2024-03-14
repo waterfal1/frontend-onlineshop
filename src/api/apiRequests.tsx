@@ -1,5 +1,31 @@
 import { useQuery, gql } from "@apollo/client";
 
+export const GET_PRODUCT = gql`
+  query product($input: ProductInput!) {
+    product(input: $input) {
+      product {
+        id
+        name
+        inStock
+        gallery
+        category
+        attributes {
+          id
+          name
+          items {
+            displayValue
+            value
+          }
+        }
+        prices {
+          currency
+          amount
+        }
+      }
+    }
+  }
+`;
+
 export const GET_CATEGORY = gql`
   query category($input: CategoryInput) {
     category(input: $input) {
@@ -23,6 +49,12 @@ export const GET_CATEGORY = gql`
         }
       }
     }
+  }
+`;
+
+export const GET_CURRENCIES = gql`
+  query {
+    currencies
   }
 `;
 

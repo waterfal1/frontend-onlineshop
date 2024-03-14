@@ -9,6 +9,13 @@ import {
   GET_LOCAL_SELECTED_GOOD_ID,
 } from "../../../operations/queries";
 import PhotoColumn from "../../photoColumn";
+import { GET_PRODUCT } from "../../../api/apiRequests";
+import { useParams } from "react-router-dom";
+import MainPhoto from "./mainPhoto";
+import AttributesRows from "./attributesRows";
+import { CurrencyConverter } from "../../../utils/currencyEnum";
+import AttributeName from "./attributeName";
+import AttributeSelected from "./attributeSelected";
 // import { query } from "../Home/getData";
 // import PhotoColumn from "../../Components/Goods/PhotoColumn";
 // import AttributesRows from "../../Components/Goods/AtrributesRows";
@@ -21,9 +28,10 @@ import PhotoColumn from "../../photoColumn";
 // import { MyGoods } from "../Home/ProductsClass";
 
 type Props = {
-  stateCurrency: number;
-  stateSelectedItem: number;
-  setGoods: (value: number) => { type: string; payload: number };
+  stateCurrency: { currency: string };
+  setCurrency: (value: { currency: string }) => void;
+  stateSelectedItem: { selectedItemId: number };
+  setGoods: (value: number) => void;
 };
 
 function Goods(props: Props) {
@@ -37,33 +45,18 @@ function Goods(props: Props) {
     attributes: [],
   });
 
+  const params = useParams();
+  console.log(params, "pparamss");
+
   const currentCurrency = useQuery(GET_LOCAL_CURRENCY);
   const currentCategory = useQuery(GET_LOCAL_CATEGORY);
   const selectedGoodId = useQuery(GET_LOCAL_SELECTED_GOOD_ID);
-
-  const
+  const { loading, data } = useQuery(GET_PRODUCT, {
+    variables: { input: { id: params.productId } },
+  });
 
   const changeImage = (index: number): void => {
     setImageState(index);
-  };
-
-  const attributeSelected = (
-    productIndex: number,
-    attributeIndex: number,
-    index: number
-  ): void => {
-    // attributes[productIndex][attributeIndex] = index;
-    setAttributes({ attributeNumber: index, attributes: [] });
-  };
-
-  const attributeNonSelected = (
-    productIndex: number,
-    attributeIndex: number,
-    index: number
-  ): void => {
-    // const newState = this.state.attributes;
-    // newState[productIndex][attributeIndex] = index;
-    setAttributes({ attributeNumber: index, attributes: [] });
   };
 
   const addToCart = (id: string, attributes: number[]): void => {
@@ -72,84 +65,61 @@ function Goods(props: Props) {
     setGoodId();
   };
 
-  const productAttributes = (): void => {};
+  if (loading) return <>...Loading</>;
+  console.log(data, "dddd", stateCurrency.currency);
 
-  const findProductIndex = (
-    productId: string | null,
-    products: {
-      id: string;
-      name: string;
-      gallery: string[];
-      prices: { amount: string; currency: string }[];
-    }[]
-  ): number => {
-    // @ts-ignore
-    return products
-      .map(
-        (
-          el: {
-            id: string;
-            name: string;
-            gallery: string[];
-            prices: { amount: string; currency: string }[];
-          },
-          index: number
-        ) => {
-          if (productId === el.id) return index;
-        }
-      )
-      .filter((value) => value || value === 0)[0];
-  };
+  return (
+    <div className="goods-page-container">
+      <PhotoColumn changeImage={changeImage} product={data.product.product} />
+      <MainPhoto product={data.product.product} imageState={imageState} />
+      <div className="goods-description">
+        <p className="goods-name">{data.product.product.name}</p>
+        <p className="goods-name weight-normal"> {data.product.product.id}</p>
 
-  const renderButton = (
-    products: { id: string; inStock: string }[],
-    productIndex: number,
-    attributes: number[][]
-  ) => {
-    if (products[productIndex].inStock)
-      return (
+        {data.product.product.attributes.map((attr) => (
+          <div key={attr.id} className="attributes-columns">
+            <div
+              style={{ background: attr.value, color: attr.value }}
+              onClick={() => {}}
+              className="goods-attribute-box pointer"
+            >
+              {attr.value}
+            </div>
+            <div className="goods-attribute-row">
+              <div
+                style={{
+                  background: attr.value,
+                  color: attr.value,
+                  border: `10px solid ${attr.value}`,
+                  boxShadow: "0 0 4px 0 rgba(50, 50, 50, 1)",
+                }}
+                onClick={() => {}}
+                className="goods-attribute-box goods-selected pointer"
+              >
+                {attr.value}
+              </div>
+            </div>
+          </div>
+        ))}
+
+        <p className="price">{data.product.product.prices[0].__typename}:</p>
+        <p className="price price-padding">
+          {stateCurrency.currency}
+          {data.product.product.prices[0].amount}
+        </p>
+
         <button
           onClick={() =>
-            addToCart(products[productIndex].id, attributes[productIndex])
+            addToCart(
+              data.product.product.id,
+              data.product.product.attributes[0]
+            )
           }
           className="add-to-cart-btn pointer"
         >
           ADD TO CART
         </button>
-      );
-    return <p>Out of Stock</p>;
-  };
-
-
-  return (
-    <div className="goods-page-container">
-       <PhotoColumn
-        changeImage={changeImage}
-        product={products[productIndex]}
-      />
-      <MainPhoto product={products[productIndex]} imageState={imageState} /> */}
-      <div className="goods-description">
-        {/* <p className="goods-name"> {products[productIndex].name}</p>
-        <p className="goods-name weight-normal"> {products[productIndex].id}</p>
-
-        <AttributesRows
-          attributes={attributes}
-          product={products[productIndex]}
-          productIndex={productIndex}
-          loadAttributes={loadAttributes}
-          attributeNonSelected={this.attributeNonSelected}
-          attributeSelected={this.attributeSelected}
-        />
-
-        <p className="price">
-          {products[productIndex].prices[this.props.stateCurrency].__typename}:
-        </p>
-        <p className="price price-padding">
-          <CurrentCurrency />
-          {products[productIndex].prices[this.props.stateCurrency].amount}
-        </p>
-        {this.renderButton(products, productIndex, attributes)}
-        {products[productIndex].description} */}
+        {data.product.product.description}
       </div>
     </div>
   );

@@ -2,7 +2,7 @@ import { InMemoryCache, makeVar, ReactiveVar } from "@apollo/client";
 import { GoodId } from "./models/SelectedGood";
 import { Category } from "./models/Category";
 import { Currency } from "./models/Currency";
-import { Good } from "./models/Good";
+import { Product } from "./models/Product";
 
 export const cache: InMemoryCache = new InMemoryCache({
   typePolicies: {
@@ -23,9 +23,9 @@ export const cache: InMemoryCache = new InMemoryCache({
             return currencyVar();
           },
         },
-        goods: {
+        products: {
           read() {
-            return goodsVar();
+            return productsVar();
           },
         },
       },
@@ -38,4 +38,4 @@ export const selectedGoodIdVar: ReactiveVar<GoodId> = makeVar<GoodId>({
 });
 export const categoryVar = makeVar<Category>({ category: "All" });
 export const currencyVar = makeVar<Currency>({ currency: "USD" });
-export const goodsVar = makeVar<{ goods: Good[] }>({ goods: [] });
+export const productsVar = makeVar<{ products: Product[] }>({ products: [] });

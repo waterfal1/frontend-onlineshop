@@ -1,7 +1,7 @@
 import { Attribute } from "./Attribute";
 import { Price } from "./Price";
 
-export interface Good {
+export interface Product {
   id: string;
   name: string;
   inStock: boolean;

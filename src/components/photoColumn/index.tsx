@@ -1,5 +1,4 @@
 import React from "react";
-import "../../Pages/Goods/Goods.styles.scss";
 
 type Props = {
   product: { gallery: string[] };

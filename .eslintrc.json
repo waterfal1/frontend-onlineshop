@@ -6,7 +6,8 @@
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
-    "plugin:react-hooks/recommended"
+    "plugin:react-hooks/recommended",
+    "react-app"
   ],
   "parserOptions": {
     "ecmaVersion": 12,
@@ -17,11 +18,7 @@
   },
   "plugins": ["react", "react-hooks"],
   "rules": {
-    "react-hooks/exhaustive-deps": [
-      "warn",
-      {
-        "additionalHooks": "(useApi)"
-      }
-    ]
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn"
   }
 }
