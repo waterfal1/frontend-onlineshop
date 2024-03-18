@@ -1,13 +1,14 @@
 import { useQuery, gql } from "@apollo/client";
 
 export const GET_PRODUCT = gql`
-  query product($input: ProductInput!) {
+  query product($input: ProductInput) {
     product(input: $input) {
       product {
         id
         name
         inStock
         gallery
+        description
         category
         attributes {
           id
@@ -15,6 +16,7 @@ export const GET_PRODUCT = gql`
           items {
             displayValue
             value
+            id
           }
         }
         prices {

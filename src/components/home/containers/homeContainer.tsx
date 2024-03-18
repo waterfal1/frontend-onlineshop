@@ -20,6 +20,8 @@ function HomeContainer() {
     variables: { input: { title: params.categoryName || "" } },
   });
 
+  console.log(data, "nothing");
+
   if (loading) return <>...Loading</>;
   if (error) return <>`Error! ${error.toString()}`</>;
 

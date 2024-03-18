@@ -30,10 +30,13 @@ function GoodsContainer() {
     variables: { input: { id: params.productId } },
   });
   // id: "huarache-x-stussy-le"
+
+  if (loading) return <>...Loading</>;
   console.log(data, "data000");
 
   return (
     <Good
+      product={data.product.product}
       setCurrency={setCurrency}
       stateCurrency={currentCurrency.data.currency}
       stateSelectedItem={stateSelectedItem.data}

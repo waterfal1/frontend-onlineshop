@@ -108,13 +108,6 @@ $normalText: normal;
   text-decoration: none;
 }
 
-.cart-green {
-  position: absolute;
-  margin-top: -100px;
-  margin-left: 100px;
-  background: #5ECE7B;
-}
-
 .pages-buttons {
   display: flex;
   padding: 30px 100px;

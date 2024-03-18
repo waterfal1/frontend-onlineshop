@@ -7,6 +7,7 @@ export interface Product {
   inStock: boolean;
   gallery: string[];
   category: string;
+  description: string;
   attributes: Attribute[];
   prices: Price[];
 }

@@ -8,6 +8,14 @@ export const GET_LOCAL_CATEGORY = gql`
   }
 `;
 
+export const GET_LOCAL_CART = gql`
+  query GetCart {
+    cart @client {
+      cart
+    }
+  }
+`;
+
 export const GET_LOCAL_CURRENCY = gql`
   query GetCurrency {
     currency @client {
