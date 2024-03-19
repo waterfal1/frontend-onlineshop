@@ -1,3 +1,5 @@
+import { Attribute } from "../../../models/Attribute";
+import { AttributeItem } from "../../../models/AttributeItem";
 import { CartProduct } from "../../../models/CartProduct";
 import { Price } from "../../../models/Price";
 import { Product } from "../../../models/Product";
@@ -15,8 +17,22 @@ export const cartProductMapper = (product: Product): CartProduct => {
       },
       {}
     ),
-    attributeId: product.attributes[0].id,
-    value: product.attributes[0].items[0].displayValue,
+    // attributeId: product.attributes[0].id,
+    attributes: product.attributes.reduce(
+      (acc: { [key: string]: AttributeItem[] }, curr: Attribute) => {
+        acc[curr.id] = curr.items;
+        return acc;
+      },
+      {}
+    ),
+    values: product.attributes.reduce(
+      (acc: { [key: string]: string }, curr: Attribute) => {
+        acc[curr.id] = curr.items[0].displayValue;
+        return acc;
+      },
+      {}
+    ),
+    // value: product.attributes[0].items[0].displayValue,
     quantity: 1,
   };
 };

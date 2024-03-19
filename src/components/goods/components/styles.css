@@ -45,6 +45,7 @@
   border: 1px solid gray;
   color: white;
   background: black;
+  transform: scale(1.15);
 }
 
 .attributes {

@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import _ from "lodash";
 import { Link, NavLink, Outlet, useMatch } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import logo from "../../../assets/a-logo.svg";
@@ -9,7 +10,6 @@ import { useCallback, useRef, useState } from "react";
 import {
   GET_LOCAL_CATEGORY,
   GET_LOCAL_CURRENCY,
-  GET_LOCAL_SELECTED_GOOD_ID,
 } from "../../../operations/queries";
 import { mutations } from "../../../operations/mutations";
 import { CustomLink } from "../../customLink.tsx";
@@ -21,6 +21,7 @@ import {
 import HeaderCurrencies from "../components/currencies2";
 import { cartService } from "../../../businessLayer";
 import { CartProduct } from "../../../models/CartProduct";
+import { cartProductMapper } from "../../home/mappers";
 
 import "./styles.css";
 
@@ -35,7 +36,7 @@ function HeaderContainer() {
   console.log(cartItems, "cartItems");
   const wrapperRef = useRef(null);
 
-  const { setCurrency, setGoodId } = mutations;
+  const { setCurrency } = mutations;
   const match = useMatch({ path: "/", end: true });
 
   const navbarLinks = useCallback(() => {
@@ -70,6 +71,24 @@ function HeaderContainer() {
     } else setCartBar(false);
   }, [cartBar]);
 
+  // const updateCart = useCallback((item: Product) => {
+  //   const cartProduct = cartProductMapper(item);
+  //   setCartItems((state) => {
+  //     const newCartItemsState = [...state];
+  //     const existingProductIndex = newCartItemsState.findIndex(
+  //       (e) => _.isEqual(e.values, cartProduct.values)
+  //     );
+
+  //     if (existingProductIndex !== -1) {
+  //       newCartItemsState[existingProductIndex] = cartProduct;
+  //     } else {
+  //       newCartItemsState.push(cartProduct);
+  //     }
+
+  //     return newCartItemsState;
+  //   });
+  // }, []);
+
   useEffect(() => {
     const cart = cartService.get();
     if (cart) setCartItems(cart);
@@ -78,6 +97,8 @@ function HeaderContainer() {
   const toggleCartBar = useCallback(() => {
     if (!cartWindowClose) {
       setCartWindowClose(true);
+      const cart = cartService.get();
+      if (cart) setCartItems(cart);
       setCartBar(false);
     } else setCartWindowClose(false);
   }, [cartWindowClose]);
@@ -99,7 +120,7 @@ function HeaderContainer() {
       return state.map((cartItem: CartProduct) => {
         if (
           cartItem.id === item.id &&
-          cartItem.attributeId === item.attributeId
+          _.isEqual(item.values, cartItem.values)
         ) {
           return { ...cartItem, quantity: cartItem.quantity + 1 };
         }
@@ -116,7 +137,7 @@ function HeaderContainer() {
       const updatedCartItems = state.map((cartItem: CartProduct) => {
         if (
           cartItem.id === item.id &&
-          cartItem.attributeId === item.attributeId
+          _.isEqual(item.values, cartItem.values)
         ) {
           const newQuantity = Math.max(cartItem.quantity - 1, 0);
           return { ...cartItem, quantity: newQuantity };
@@ -182,7 +203,7 @@ function HeaderContainer() {
                   cartItems.map((item: CartProduct) => {
                     return (
                       <div
-                        key={item.id + item.attributeId}
+                        key={item.id + JSON.stringify(item.values)}
                         className="cart-window-container"
                       >
                         <div className="window-first-container">
@@ -201,13 +222,20 @@ function HeaderContainer() {
                             }
                           </p>
                           <div className="cart-window-attribute-row">
-                            <div
-                              key={item.attributeId}
-                              style={{ background: "black", color: "white" }}
-                              className="cart-window-attributes"
-                            >
-                              {item.value}
-                            </div>
+                            {/* {item.attributes.map((attr, attrIndex) => {
+                              return (
+                                <div
+                                  key={attr.id}
+                                  style={{
+                                    background: "black",
+                                    color: "white",
+                                  }}
+                                  className="cart-window-attributes"
+                                >
+                                  {item.value}
+                                </div>
+                              );
+                            })} */}
                           </div>
                         </div>
                         <div className="cart-window-center-flex-element">
@@ -268,5 +296,7 @@ function HeaderContainer() {
     </>
   );
 }
+
+
 
 export default HeaderContainer;

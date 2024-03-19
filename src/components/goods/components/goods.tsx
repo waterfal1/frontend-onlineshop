@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import parse from "html-react-parser";
 import "./styles.css";
 import { mutations } from "../../../operations/mutations";
@@ -9,29 +9,14 @@ import {
   GET_LOCAL_SELECTED_GOOD_ID,
 } from "../../../operations/queries";
 import PhotoColumn from "../../photoColumn";
-import { GET_PRODUCT } from "../../../api/apiRequests";
 import { useParams } from "react-router-dom";
 import MainPhoto from "./mainPhoto";
-import AttributesRows from "./attributesRows";
-import {
-  CurrencyConverter,
-  CurrencyReConverter,
-} from "../../../utils/currencyEnum";
-import AttributeName from "./attributeName";
-import AttributeSelected from "./attributeSelected";
+import { CurrencyReConverter } from "../../../utils/currencyEnum";
 import { Product } from "../../../models/Product";
 import { Attribute } from "../../../models/Attribute";
 import { Price } from "../../../models/Price";
-// import { query } from "../Home/getData";
-// import PhotoColumn from "../../Components/Goods/PhotoColumn";
-// import AttributesRows from "../../Components/Goods/AtrributesRows";
-// import {
-//   addGoodsToStorage,
-//   productsAttributes,
-// } from "../../Components/functions";
-// import CurrentCurrency from "../../Components/Cart/CurrentCurrency";
-// import MainPhoto from "../../Components/Header/MainPhoto";
-// import { MyGoods } from "../Home/ProductsClass";
+import { cartProductMapper } from "../../home/mappers";
+import { cartService } from "../../../businessLayer";
 
 type Props = {
   stateCurrency: { currency: string };
@@ -56,7 +41,7 @@ function Goods(props: Props) {
   );
 
   const params = useParams();
-  console.log(params, "pparamss");
+  console.log(attributesSelected, "attributesSelected");
 
   const currentCurrency = useQuery(GET_LOCAL_CURRENCY);
   const currentCategory = useQuery(GET_LOCAL_CATEGORY);
@@ -69,11 +54,46 @@ function Goods(props: Props) {
     setImageState(index);
   };
 
-  const addToCart = (id: string, attributes: number[]): void => {
-    // setCounter((state) => state + 1);
-    // addGoodsToStorage(id, attributes);
-    // setGoodId();
+  const addToCart = (item: Product): void => {
+    const cartProduct = cartProductMapper(item);
+    // values: product.attributes.reduce(
+    //   (acc: { [key: string]: string }, curr: Attribute) => {
+    //     acc[curr.id] = curr.items[0].displayValue;
+    //     return acc;
+    //   },
+    //   {}
+    // ),
+    cartProduct.values = item.attributes.reduce(
+      (acc: { [key: string]: string }, curr: Attribute, index: number) => {
+        acc[curr.id] = curr.items[attributesSelected[index]].displayValue;
+        return acc;
+      },
+      {}
+    );
+    // cartProduct.values = item.attributes.map((attr, attrIndex) => attr.items[attributesSelected[attrIndex]].displayValue)
+    const cartItem = cartService.getItem(cartProduct);
+    if (cartItem) {
+      // if (cartItem.attributeId === item.attributes[0].items)
+      // cartItem.attributes.forEach((attr, index) => {
+      //   attr.items[attributesSelected[index]].
+      // })
+      cartItem.quantity++;
+      cartService.update(cartItem);
+    } else {
+      cartService.update(cartProduct);
+    }
   };
+
+  const selectAttributeHandler = useCallback(
+    (attrIndex: number, attrPropertyIndex: number) => {
+      setAttributesSelected((state) => {
+        const newState = [...state];
+        newState[attrIndex] = attrPropertyIndex;
+        return newState;
+      });
+    },
+    []
+  );
 
   // if (loading) return <>...Loading</>;
   // console.log(data, "dddd", stateCurrency.currency);
@@ -102,7 +122,7 @@ function Goods(props: Props) {
                       border: `10px solid ${item.value}`,
                       boxShadow: "0 0 4px 0 rgba(50, 50, 50, 1)",
                     }}
-                    onClick={() => {}}
+                    onClick={() => selectAttributeHandler(attrIndex, index)}
                     className={`goods-attribute-box ${
                       attributesSelected[attrIndex] === index
                         ? "goods-selected"
