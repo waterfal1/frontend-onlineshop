@@ -92,7 +92,6 @@ function Cart() {
   //     );
   //   }
   // )}
-
   console.log(cartItems, "cartItems2");
 
   return (
