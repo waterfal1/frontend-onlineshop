@@ -156,8 +156,6 @@ function HeaderContainer() {
   if (loading) return <div>Loading...</div>;
   if (error) return <>Error {error.toString()}</>;
 
-  console.log(currentCurrency.data, "mmm", cartItems);
-
   return (
     <>
       <header>
@@ -203,7 +201,9 @@ function HeaderContainer() {
                   cartItems.map((item: CartProduct) => {
                     return (
                       <div
-                        key={item.id + JSON.stringify(item.values)}
+                        key={
+                          item.id + JSON.stringify(item.values) + Math.random()
+                        }
                         className="cart-window-container"
                       >
                         <div className="window-first-container">
@@ -222,20 +222,35 @@ function HeaderContainer() {
                             }
                           </p>
                           <div className="cart-window-attribute-row">
-                            {/* {item.attributes.map((attr, attrIndex) => {
-                              return (
-                                <div
-                                  key={attr.id}
-                                  style={{
-                                    background: "black",
-                                    color: "white",
-                                  }}
-                                  className="cart-window-attributes"
-                                >
-                                  {item.value}
-                                </div>
-                              );
-                            })} */}
+                            {Object.entries(item.values).map(
+                              ([key, value], attrIndex) => {
+                                return (
+                                  <React.Fragment
+                                    key={key + value + Math.random()}
+                                  >
+                                    <div
+                                      style={{
+                                        background: value,
+                                        color: value,
+                                      }}
+                                      className="cart-window-attributes"
+                                    >
+                                      {key}:
+                                    </div>
+                                    <div
+                                      key={key + value}
+                                      style={{
+                                        background: value,
+                                        color: value,
+                                      }}
+                                      className="cart-window-attributes"
+                                    >
+                                      {value}
+                                    </div>
+                                  </React.Fragment>
+                                );
+                              }
+                            )}
                           </div>
                         </div>
                         <div className="cart-window-center-flex-element">

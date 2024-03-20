@@ -50,39 +50,43 @@ function Goods(props: Props) {
   //   variables: { input: { id: params.productId } },
   // });
 
-  const changeImage = (index: number): void => {
+  const changeImage = useCallback((index: number): void => {
     setImageState(index);
-  };
+  }, []);
 
-  const addToCart = (item: Product): void => {
-    const cartProduct = cartProductMapper(item);
-    // values: product.attributes.reduce(
-    //   (acc: { [key: string]: string }, curr: Attribute) => {
-    //     acc[curr.id] = curr.items[0].displayValue;
-    //     return acc;
-    //   },
-    //   {}
-    // ),
-    cartProduct.values = item.attributes.reduce(
-      (acc: { [key: string]: string }, curr: Attribute, index: number) => {
-        acc[curr.id] = curr.items[attributesSelected[index]].displayValue;
-        return acc;
-      },
-      {}
-    );
-    // cartProduct.values = item.attributes.map((attr, attrIndex) => attr.items[attributesSelected[attrIndex]].displayValue)
-    const cartItem = cartService.getItem(cartProduct);
-    if (cartItem) {
-      // if (cartItem.attributeId === item.attributes[0].items)
-      // cartItem.attributes.forEach((attr, index) => {
-      //   attr.items[attributesSelected[index]].
-      // })
-      cartItem.quantity++;
-      cartService.update(cartItem);
-    } else {
-      cartService.update(cartProduct);
-    }
-  };
+  const addToCart = useCallback(
+    (item: Product): void => {
+      console.log("5555");
+      const cartProduct = cartProductMapper(item);
+      // values: product.attributes.reduce(
+      //   (acc: { [key: string]: string }, curr: Attribute) => {
+      //     acc[curr.id] = curr.items[0].displayValue;
+      //     return acc;
+      //   },
+      //   {}
+      // ),
+      cartProduct.values = item.attributes.reduce(
+        (acc: { [key: string]: string }, curr: Attribute, index: number) => {
+          acc[curr.id] = curr.items[attributesSelected[index]].value;
+          return acc;
+        },
+        {}
+      );
+      // cartProduct.values = item.attributes.map((attr, attrIndex) => attr.items[attributesSelected[attrIndex]].displayValue)
+      const cartItem = cartService.getItem(cartProduct);
+      if (cartItem) {
+        // if (cartItem.attributeId === item.attributes[0].items)
+        // cartItem.attributes.forEach((attr, index) => {
+        //   attr.items[attributesSelected[index]].
+        // })
+        cartItem.quantity++;
+        cartService.update(cartItem);
+      } else {
+        cartService.update(cartProduct);
+      }
+    },
+    [attributesSelected]
+  );
 
   const selectAttributeHandler = useCallback(
     (attrIndex: number, attrPropertyIndex: number) => {
@@ -108,14 +112,14 @@ function Goods(props: Props) {
         <p className="goods-name weight-normal"> {product.id}</p>
 
         {product.attributes.map((attr: Attribute, attrIndex: number) => (
-          <div key={attr.id} className="attributes-columns">
+          <div key={attr.id + Math.random()} className="attributes-columns">
             <p className="goods-attribute"> {attr.name}:</p>
 
             <div className="goods-attribute-row">
               {attr.items.map((item, index) => {
                 return (
                   <div
-                    key={item.id}
+                    key={item.id + Math.random()}
                     style={{
                       background: item.value,
                       color: item.value,

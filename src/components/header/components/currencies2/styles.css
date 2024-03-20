@@ -322,22 +322,6 @@ a {
   gap: 8px;
 }
 
-.cart-window-attributes {
-  display: flex;
-  border: 1px solid #1D1F22;
-  box-sizing: border-box;
-  justify-content: center;
-  align-items: center;
-  margin-right: 20px;
-  height: 28px;
-  width: 50px;
-  font-family: 'Source Sans Pro', sans-serif;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 160%;
-  color: #1D1F22;
-}
 
 select {
   border: none;

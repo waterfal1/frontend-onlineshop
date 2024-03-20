@@ -30,10 +30,13 @@ export default class CartStorage implements ICartStorage {
       (e) => _.isEqual(item.values, e.values) && e.id === item.id
     );
     if (item.quantity === 0) {
+      console.log("111");
       cart.splice(existingProductIndex, 1);
     } else if (existingProductIndex !== -1) {
       cart[existingProductIndex] = item;
+      console.log("222");
     } else if (item.quantity !== 0) {
+      console.log("333");
       cart.push(item);
     }
 

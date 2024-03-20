@@ -3,18 +3,6 @@
 $TextColor: #1D1F22;
 
 .cart-name {
-  justify-content: flex-start;
-  margin-top: 160px;
-  padding-bottom: 60px;
-  display: flex;
-  align-items: center;
-  color: $TextColor;
-  padding-left: 110px;
-  font-family: Raleway, sans-serif;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 32px;
-  line-height: 40px;
   text-transform: uppercase;
 }
 
@@ -113,9 +101,11 @@ color: unset;
 }
 
 .cart-selected {
-  color: white;
-  background: #1D1F22;
   box-sizing: border-box;
+  transform: scale(1.2);
+  border: 1px solid gray;
+  color: white;
+  background: black;
 }
 
 
@@ -177,10 +167,6 @@ color: unset;
 }
 
 @media screen and (max-width: 960px) {
-  .cart-name {
-    padding: 0 10vw 60px 10vw;
-  }
-
   .cart-common-container {
     padding: 0 10vw;
   }

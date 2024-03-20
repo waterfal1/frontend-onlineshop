@@ -27,7 +27,7 @@ export const cartProductMapper = (product: Product): CartProduct => {
     ),
     values: product.attributes.reduce(
       (acc: { [key: string]: string }, curr: Attribute) => {
-        acc[curr.id] = curr.items[0].displayValue;
+        acc[curr.id] = curr.items[0].value || curr.items[0].displayValue;
         return acc;
       },
       {}

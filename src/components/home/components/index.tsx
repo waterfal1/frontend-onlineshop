@@ -4,13 +4,10 @@ import cart from "../../../assets/cart.svg";
 import { Product } from "../../../models/Product";
 import { NavLink } from "react-router-dom";
 import { CurrencyReConverter } from "../../../utils/currencyEnum";
-
 import { cartService } from "../../../businessLayer";
-import { CartProduct } from "../../../models/CartProduct";
+import { cartProductMapper } from "../mappers";
 
 import "./styles.css";
-import { Price } from "../../../models/Price";
-import { cartProductMapper } from "../mappers";
 
 type Props = {
   currentCurrency: { currency: string };
@@ -25,6 +22,7 @@ function Home(props: Props) {
   const addGood = useCallback((item: Product) => {
     const cartProduct = cartProductMapper(item);
     const cartItem = cartService.getItem(cartProduct);
+    console.log(cartItem, cartProduct, "end");
     if (cartItem) {
       cartItem.quantity++;
       cartService.update(cartItem);
@@ -35,11 +33,7 @@ function Home(props: Props) {
     <main>
       <div className="category-block-on-page">
         {props.products.map((item) => (
-          <div
-            key={item.id}
-            onClick={() => addGood(item)}
-            className="product-card"
-          >
+          <div key={item.id} className="product-card">
             <div className={item.inStock ? "in-stock" : "not-in-stock"}>
               <NavLink to={`/${item.category}/${item.id}`}>
                 <img className="goods-image" src={item.gallery[0]} alt="Good" />
@@ -57,7 +51,7 @@ function Home(props: Props) {
                 </p>
               </NavLink>
               <img
-                onClick={() => {}}
+                onClick={() => addGood(item)}
                 className="on-hover-cart"
                 src={cart}
                 alt="Cart"
