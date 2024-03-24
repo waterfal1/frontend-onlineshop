@@ -1,4 +1,5 @@
 import React from "react";
+import { CurrencyReConverter } from "../../../../utils/currencyEnum";
 
 type Props = {
   currencies: { __typename: string; currency: string; amount: string }[];
@@ -8,16 +9,10 @@ type Props = {
 function HeaderCurrencies(props: Props) {
   const { currencies, handleCurrency } = props;
   const currenciesRender = () => {
-    const currenciesSigns = [
-      <>&#36;</>,
-      <>&#163;</>,
-      <>&#36;</>,
-      <>&#165;</>,
-      <>&#8381;</>,
-    ];
+    console.log(currencies, "currenciess");
     return currencies.map((currency: { currency: string }, index: number) => (
       <div key={index} onClick={() => handleCurrency(String(index))}>
-        <span id={String(index)}>{currenciesSigns[index]}</span>
+        <span id={String(index)}>{CurrencyReConverter[currency.currency]}</span>
         {currency.currency}
       </div>
     ));

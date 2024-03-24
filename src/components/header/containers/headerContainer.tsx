@@ -1,6 +1,12 @@
 import React, { useEffect } from "react";
 import _ from "lodash";
-import { Link, NavLink, Outlet, useMatch } from "react-router-dom";
+import {
+  Link,
+  NavLink,
+  Outlet,
+  useMatch,
+  useOutletContext,
+} from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import logo from "../../../assets/a-logo.svg";
 import cartTop from "../../../assets/cartTop.svg";
@@ -21,9 +27,9 @@ import {
 import HeaderCurrencies from "../components/currencies2";
 import { cartService } from "../../../businessLayer";
 import { CartProduct } from "../../../models/CartProduct";
-import { cartProductMapper } from "../../home/mappers";
 
 import "./styles.css";
+import DefaultErrorMessage from "../../../errorBoundary/defaultErrorMessage";
 
 function HeaderContainer() {
   const { data, loading, error } = useQuery(GET_PARTIAL_CATEGORY_DATA);
@@ -56,7 +62,6 @@ function HeaderContainer() {
   }, [data]);
 
   const handleCurrency = (index: string): void => {
-    setCurrency({ currency: CurrencyConverter[index] });
     const currency = document.getElementById(index);
     if (currency === null) return;
 
@@ -71,23 +76,10 @@ function HeaderContainer() {
     } else setCartBar(false);
   }, [cartBar]);
 
-  // const updateCart = useCallback((item: Product) => {
-  //   const cartProduct = cartProductMapper(item);
-  //   setCartItems((state) => {
-  //     const newCartItemsState = [...state];
-  //     const existingProductIndex = newCartItemsState.findIndex(
-  //       (e) => _.isEqual(e.values, cartProduct.values)
-  //     );
-
-  //     if (existingProductIndex !== -1) {
-  //       newCartItemsState[existingProductIndex] = cartProduct;
-  //     } else {
-  //       newCartItemsState.push(cartProduct);
-  //     }
-
-  //     return newCartItemsState;
-  //   });
-  // }, []);
+  const updatedCartItems = useCallback(() => {
+    const cart = cartService.get();
+    if (cart) setCartItems(cart);
+  }, []);
 
   useEffect(() => {
     const cart = cartService.get();
@@ -153,8 +145,8 @@ function HeaderContainer() {
     });
   }, []);
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <>Error {error.toString()}</>;
+  if (error) return <DefaultErrorMessage />;
+  if (loading) return null;
 
   return (
     <>
@@ -163,24 +155,26 @@ function HeaderContainer() {
           <div onClick={toggleCartWindow} className="dark-side" />
         ) : null}
         <nav className="header_bar">
-          <ul className="nav-list">{navbarLinks()}</ul>
+          <ul className="nav-list">
+            {navbarLinks()}
+            <CustomLink to={`/cart`}>CART</CustomLink>
+          </ul>
           <Link to="/">
             <img src={logo} alt="Home" />
           </Link>
           <div ref={wrapperRef} className="currency-icons">
             <div className="column-container">
               <div className="currency-container" onClick={changeCurrency}>
-                {CurrencyReConverter[currentCurrency.data.currency.currency] +
-                  " " +
-                  currentCurrency.data.currency.currency}
+                {CurrencyReConverter[currentCurrency.data.currency.currency]}
                 <div className="arrow-down" />
+
+                {cartBar && (
+                  <HeaderCurrencies
+                    currencies={data.category.products[0].prices}
+                    handleCurrency={handleCurrency}
+                  />
+                )}
               </div>
-              {cartBar && (
-                <HeaderCurrencies
-                  currencies={data.category.products[0].prices}
-                  handleCurrency={handleCurrency}
-                />
-              )}
             </div>
             <img
               onClick={toggleCartBar}
@@ -307,9 +301,17 @@ function HeaderContainer() {
         </div>
       </header>
 
-      <Outlet />
+      <Outlet
+        context={{
+          user: updatedCartItems,
+        }}
+      />
     </>
   );
+}
+
+export function useUser() {
+  return useOutletContext<{ user: () => void }>();
 }
 
 

@@ -1,23 +1,27 @@
 import React, { useCallback, useEffect, useState } from "react";
 
 import { useQuery } from "@apollo/client";
+import _ from "lodash";
 import { GET_LOCAL_CURRENCY } from "../../../operations/queries";
 import { CartProduct } from "../../../models/CartProduct";
 import { cartService } from "../../../businessLayer";
-import _ from "lodash";
+import { NavLink } from "react-router-dom";
+import { CurrencyReConverter } from "../../../utils/currencyEnum";
 
 import "./styles.css";
-import { NavLink } from "react-router-dom";
-import { CurrencyConverter } from "../../../utils/currencyEnum";
 
 function Cart() {
   const currentCurrency = useQuery(GET_LOCAL_CURRENCY);
   const [cartItems, setCartItems] = useState<CartProduct[]>([]);
 
-  useEffect(() => {
+  const updateComponent = useCallback(() => {
     const cart = cartService.get();
     if (cart) setCartItems(cart);
   }, []);
+
+  useEffect(() => {
+    updateComponent();
+  }, [updateComponent]);
 
   const setAmountUp = useCallback((item: CartProduct): void => {
     const cartItem = cartService.getItem(item);
@@ -64,44 +68,57 @@ function Cart() {
     return cartService.totalCost(currentCurrency.data.currency.currency);
   }, [currentCurrency.data]);
 
-  // {Object.entries(item.values).map(
-  //   ([key, value], attrIndex) => {
-  //     return (
-  //       <>
-  //         <div
-  //           key={key + value}
-  //           style={{
-  //             background: value,
-  //             color: value,
-  //           }}
-  //           className="cart-window-attributes"
-  //         >
-  //           {key}:
-  //         </div>
-  //         <div
-  //           key={key + value}
-  //           style={{
-  //             background: value,
-  //             color: value,
-  //           }}
-  //           className="cart-window-attributes"
-  //         >
-  //           {value}
-  //         </div>
-  //       </>
-  //     );
-  //   }
-  // )}
+  const selectAttributeHandler = useCallback(
+    (
+      item: CartProduct,
+      attribute: string,
+      value: string,
+      displayValue: string
+    ) => {
+      const cartItem = cartService.getItem(item);
+      if (cartItem) {
+        cartItem.values[attribute] = value || displayValue;
+        cartService.updateProperties(item, cartItem);
+      }
+      updateComponent();
+    },
+    [updateComponent]
+  );
 
-  console.log(cartItems, "cartItems2");
+  const setNextImage = useCallback(
+    (item: CartProduct, index: number) => {
+      const cartItem = cartService.getItem(item);
+      if (cartItem.activeImageIndx < cartItem.photo.length - 1) {
+        cartItem.activeImageIndx++;
+      } else {
+        cartItem.activeImageIndx = 0;
+      }
+      cartService.update(cartItem);
+      updateComponent();
+    },
+    [updateComponent]
+  );
+
+  const setPreviousImage = useCallback(
+    (item: CartProduct, index: number) => {
+      const cartItem = cartService.getItem(item);
+      if (cartItem.activeImageIndx > 0) {
+        cartItem.activeImageIndx--;
+      } else {
+        cartItem.activeImageIndx = cartItem.photo.length - 1;
+      }
+      cartService.update(cartItem);
+      updateComponent();
+    },
+    [updateComponent]
+  );
 
   return (
     <section>
-      <h1 className="cart-name">Cart</h1>
-      {!cartItems ? (
-        <div className="cart-name">You cart is empty</div>
+      {cartItems.length === 0 ? (
+        <h1 className="cart-name">You cart is empty</h1>
       ) : (
-        cartItems.map((item: CartProduct) => {
+        cartItems.map((item: CartProduct, index: number) => {
           return (
             <div
               key={item.id + Object.entries(item.values)}
@@ -112,14 +129,17 @@ function Cart() {
                   <p className="cart-first-text">{item.name}</p>
                   <p className="cart-first-text weight-normal">{item.id}</p>
                   <p className="cart-goods-padding">
-                    {CurrencyConverter[currentCurrency.data.currency.currency]}
+                    {
+                      CurrencyReConverter[
+                        currentCurrency.data.currency.currency
+                      ]
+                    }
                     {item.prices[currentCurrency.data.currency.currency]}
                   </p>
                 </NavLink>
 
                 {Object.entries(item.attributes).map(
                   ([attribute, attrValue]) => {
-                    console.log(attribute, attrValue, "eeeend");
                     return (
                       <div
                         key={
@@ -155,15 +175,21 @@ function Cart() {
                                   }`,
                                   boxShadow: "0 0 4px 0 rgba(50, 50, 50, 1)",
                                 }}
-                                onClick={() => attributeSelected}
+                                onClick={() =>
+                                  selectAttributeHandler(
+                                    item,
+                                    attribute,
+                                    val.value,
+                                    val.displayValue
+                                  )
+                                }
                                 className={`cart-box ${
-                                  item.values[attribute] ===
-                                  (val.displayValue || val.value)
+                                  item.values[attribute] === val.displayValue ||
+                                  item.values[attribute] === val.value
                                     ? "cart-selected"
                                     : ""
                                 } pointer`}
                               >
-                                {/* item.values[attribute] === val.value */}
                                 {val.displayValue}
                               </div>
                             );
@@ -194,15 +220,15 @@ function Cart() {
               <div className="cart-third-flex-element">
                 <img
                   className="cart-small-img"
-                  src={item.photo[0]}
+                  src={item.photo[item.activeImageIndx]}
                   alt="picture1"
                 />
                 <div
-                  onClick={() => imageDown()}
+                  onClick={() => setPreviousImage(item, index)}
                   className="arrow-rev arrow-left-rev pointer"
                 />
                 <div
-                  onClick={() => imageUp()}
+                  onClick={() => setNextImage(item, index)}
                   className="arrow-rev arrow-right-rev pointer"
                 />
               </div>

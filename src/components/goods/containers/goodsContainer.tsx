@@ -8,6 +8,7 @@ import {
   GET_LOCAL_SELECTED_GOOD_ID,
 } from "../../../operations/queries";
 import { mutations } from "../../../operations/mutations";
+import Loading from "../../../pages/loading";
 // import { connect } from "react-redux";
 // import { setCurrency } from "../../store/Currency/actions";
 // import { setGoods } from "../../store/ChoseGoods/actions";
@@ -29,9 +30,10 @@ function GoodsContainer() {
   const { loading, data } = useQuery(GET_PRODUCT, {
     variables: { input: { id: params.productId } },
   });
+
   // id: "huarache-x-stussy-le"
 
-  if (loading) return <>...Loading</>;
+  if (loading) return <Loading />;
   console.log(data, "data000");
 
   return (

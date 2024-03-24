@@ -31,6 +31,18 @@ export default class CartService implements ICartService {
     this.cartStorage.update(item);
   }
 
+  public updateProperties(oldItem: CartProduct, newItem: CartProduct): void {
+    this.cartStorage.updateProperties(oldItem, newItem);
+  }
+
+  public addItem(item: CartProduct): void {
+    this.cartStorage.addItem(item);
+  }
+
+  public removeItem(item: CartProduct): void {
+    this.cartStorage.removeItem(item);
+  }
+
   public reset(): void {
     this.cartStorage.reset();
   }

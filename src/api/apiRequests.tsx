@@ -1,4 +1,9 @@
-import { useQuery, gql } from "@apollo/client";
+import { useQuery, gql, TypedDocumentNode } from "@apollo/client";
+import { Product } from "../models/Product";
+
+interface ProductId {
+  id: string;
+}
 
 export const GET_PRODUCT = gql`
   query product($input: ProductInput) {
@@ -57,6 +62,22 @@ export const GET_CATEGORY = gql`
 export const GET_CURRENCIES = gql`
   query {
     currencies
+  }
+`;
+
+export const IS_VALID_CATEGORY = gql`
+  query isValidCategory($input: CategoryInput) {
+    isValidCategory(input: $input) {
+      isValidCategory
+    }
+  }
+`;
+
+export const IS_VALID_PRODUCT_ID = gql`
+  query isValidProductId($input: ProductInput) {
+    isValidProductId(input: $input) {
+      isValidProductId
+    }
   }
 `;
 

@@ -2,12 +2,13 @@ import React, { useCallback } from "react";
 
 import cart from "../../../assets/cart.svg";
 import { Product } from "../../../models/Product";
-import { NavLink } from "react-router-dom";
+import { NavLink, useOutletContext } from "react-router-dom";
 import { CurrencyReConverter } from "../../../utils/currencyEnum";
 import { cartService } from "../../../businessLayer";
 import { cartProductMapper } from "../mappers";
 
 import "./styles.css";
+import { useUser } from "../../header/containers/headerContainer";
 
 type Props = {
   currentCurrency: { currency: string };
@@ -19,15 +20,23 @@ type Props = {
 function Home(props: Props) {
   const { currentCurrency } = props;
 
-  const addGood = useCallback((item: Product) => {
-    const cartProduct = cartProductMapper(item);
-    const cartItem = cartService.getItem(cartProduct);
-    console.log(cartItem, cartProduct, "end");
-    if (cartItem) {
-      cartItem.quantity++;
-      cartService.update(cartItem);
-    } else cartService.update(cartProduct);
-  }, []);
+  const { user } = useUser();
+  // console.log(user(), "updatecartitems");
+
+  const addGood = useCallback(
+    (item: Product) => {
+      if (item.inStock) {
+        const cartProduct = cartProductMapper(item);
+        const cartItem = cartService.getItem(cartProduct);
+        if (cartItem) {
+          cartItem.quantity++;
+          cartService.update(cartItem);
+        } else cartService.addItem(cartProduct);
+      }
+      user();
+    },
+    [user]
+  );
 
   return (
     <main>

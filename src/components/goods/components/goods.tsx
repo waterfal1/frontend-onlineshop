@@ -17,6 +17,7 @@ import { Attribute } from "../../../models/Attribute";
 import { Price } from "../../../models/Price";
 import { cartProductMapper } from "../../home/mappers";
 import { cartService } from "../../../businessLayer";
+import { useUser } from "../../header/containers/headerContainer";
 
 type Props = {
   stateCurrency: { currency: string };
@@ -41,14 +42,12 @@ function Goods(props: Props) {
   );
 
   const params = useParams();
+  const { user } = useUser();
   console.log(attributesSelected, "attributesSelected");
 
   const currentCurrency = useQuery(GET_LOCAL_CURRENCY);
   const currentCategory = useQuery(GET_LOCAL_CATEGORY);
   const selectedGoodId = useQuery(GET_LOCAL_SELECTED_GOOD_ID);
-  // const { loading, data } = useQuery(GET_PRODUCT, {
-  //   variables: { input: { id: params.productId } },
-  // });
 
   const changeImage = useCallback((index: number): void => {
     setImageState(index);
@@ -56,36 +55,27 @@ function Goods(props: Props) {
 
   const addToCart = useCallback(
     (item: Product): void => {
-      console.log("5555");
       const cartProduct = cartProductMapper(item);
-      // values: product.attributes.reduce(
-      //   (acc: { [key: string]: string }, curr: Attribute) => {
-      //     acc[curr.id] = curr.items[0].displayValue;
-      //     return acc;
-      //   },
-      //   {}
-      // ),
       cartProduct.values = item.attributes.reduce(
         (acc: { [key: string]: string }, curr: Attribute, index: number) => {
-          acc[curr.id] = curr.items[attributesSelected[index]].value;
+          acc[curr.id] =
+            curr.items[attributesSelected[index]].value ||
+            curr.items[attributesSelected[index]].displayValue;
           return acc;
         },
         {}
       );
-      // cartProduct.values = item.attributes.map((attr, attrIndex) => attr.items[attributesSelected[attrIndex]].displayValue)
+
       const cartItem = cartService.getItem(cartProduct);
       if (cartItem) {
-        // if (cartItem.attributeId === item.attributes[0].items)
-        // cartItem.attributes.forEach((attr, index) => {
-        //   attr.items[attributesSelected[index]].
-        // })
         cartItem.quantity++;
         cartService.update(cartItem);
       } else {
-        cartService.update(cartProduct);
+        cartService.addItem(cartProduct);
       }
+      user();
     },
-    [attributesSelected]
+    [attributesSelected, user]
   );
 
   const selectAttributeHandler = useCallback(

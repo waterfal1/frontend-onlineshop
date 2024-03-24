@@ -23,6 +23,42 @@ export default class CartStorage implements ICartStorage {
     );
   }
 
+  public addItem(item: CartProduct): void {
+    let cart = this.get();
+    cart.push(item);
+    this.storage.setItem(CartStorage.CART, cart);
+  }
+
+  public updateProperties(oldItem: CartProduct, newItem: CartProduct): void {
+    let cart = this.get();
+
+    const oldIndex = cart.findIndex(
+      (e) => _.isEqual(oldItem.values, e.values) && e.id === oldItem.id
+    );
+    const newIndex = cart.findIndex(
+      (e) => _.isEqual(newItem.values, e.values) && e.id === newItem.id
+    );
+    if (newIndex !== -1 && oldIndex !== -1 && oldIndex !== newIndex) {
+      cart[newIndex].quantity =
+        cart[newIndex].quantity + cart[oldIndex].quantity;
+      cart.splice(oldIndex, 1);
+    } else if (oldIndex !== -1) {
+      cart[oldIndex].values = newItem.values;
+    }
+    this.storage.setItem(CartStorage.CART, cart);
+  }
+
+  public removeItem(item: CartProduct): void {
+    let cart = this.get();
+    const existingProductIndex = cart.findIndex(
+      (e) => _.isEqual(item.values, e.values) && e.id === item.id
+    );
+    if (existingProductIndex !== -1) {
+      cart.splice(existingProductIndex, 1);
+    }
+    this.storage.setItem(CartStorage.CART, cart);
+  }
+
   public update(item: CartProduct): void {
     let cart = this.get();
 
@@ -30,14 +66,9 @@ export default class CartStorage implements ICartStorage {
       (e) => _.isEqual(item.values, e.values) && e.id === item.id
     );
     if (item.quantity === 0) {
-      console.log("111");
       cart.splice(existingProductIndex, 1);
     } else if (existingProductIndex !== -1) {
       cart[existingProductIndex] = item;
-      console.log("222");
-    } else if (item.quantity !== 0) {
-      console.log("333");
-      cart.push(item);
     }
 
     this.storage.setItem(CartStorage.CART, cart);

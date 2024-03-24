@@ -1,8 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
-$TextColor: #1D1F22;
 
 .cart-name {
+  justify-content: flex-start;
+  margin-top: 160px;
+  padding-bottom: 60px;
+  display: flex;
+  align-items: center;
+  color: $TextColor;
+  padding-left: 110px;
+  font-family: Raleway, sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 32px;
+  line-height: 40px;
   text-transform: uppercase;
 }
 
@@ -56,12 +67,10 @@ color: unset;
   border: 1px solid #1D1F22;
   margin-right: 20px;
   margin-bottom: 5px;
-  height: 45px;
-  width: 64px;
+  padding: 10px;
   font-family: Source Sans Pro, sans-serif;
   font-style: normal;
   font-weight: normal;
-  font-size: 16px;
   line-height: 18px;
 }
 

@@ -30,11 +30,10 @@
   top: 20px;
   right: 106px;
   color: white;
-  height: 20px;
-  width: 20px;
+  padding: 2px;
   display: flex;
   z-index: 50;
-  border-radius: 60px;
+  border-radius: 10px;
   font-family: Roboto, sans-serif;
   font-style: normal;
   font-weight: bold;

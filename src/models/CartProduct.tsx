@@ -6,6 +6,7 @@ export interface CartProduct {
   name: string;
   prices: { [key: string]: number };
   photo: string[];
+  activeImageIndx: number;
   // attributeId: string;
   attributes: { [key: string]: AttributeItem[] };
   // value: string;

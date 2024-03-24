@@ -13,9 +13,9 @@ export const CurrencyConverter: CurrencyMap = {
 
 
 export const CurrencyReConverter: CurrencyMap = {
-  "USD": "$",
-  "GBP": "£",
-  "AUD": "A$",
-  "JPY": "¥",
-  "RUB": "₽",
+  USD: "$",
+  GBP: "£",
+  AUD: "A$",
+  JPY: "¥",
+  RUB: "₽",
 };

@@ -8,6 +8,8 @@ import {
 } from "../../../operations/queries";
 import { GET_CATEGORY } from "../../../api/apiRequests";
 import { useParams } from "react-router-dom";
+import Loading from "../../../pages/loading";
+import DefaultErrorMessage from "../../../errorBoundary/defaultErrorMessage";
 
 function HomeContainer() {
   const params = useParams();
@@ -22,8 +24,8 @@ function HomeContainer() {
 
   console.log(data, "nothing");
 
-  if (loading) return <>...Loading</>;
-  if (error) return <>`Error! ${error.toString()}`</>;
+  if (error) return <DefaultErrorMessage />;
+  if (loading) return <Loading />;
 
   return (
     <Home
