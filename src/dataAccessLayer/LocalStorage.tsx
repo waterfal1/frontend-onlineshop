@@ -16,7 +16,6 @@ export default class LocalStorage implements IStorage {
       localStorage.removeItem(key);
     } else {
       const data = JSON.stringify(value);
-      console.log(value, "444");
 
       localStorage.setItem(key, data);
     }

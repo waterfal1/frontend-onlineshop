@@ -1,117 +1,36 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React from "react";
 
-import { useQuery } from "@apollo/client";
-import _ from "lodash";
-import { GET_LOCAL_CURRENCY } from "../../../operations/queries";
 import { CartProduct } from "../../../models/CartProduct";
-import { cartService } from "../../../businessLayer";
 import { NavLink } from "react-router-dom";
 import { CurrencyReConverter } from "../../../utils/currencyEnum";
 
 import "./styles.css";
 
-function Cart() {
-  const currentCurrency = useQuery(GET_LOCAL_CURRENCY);
-  const [cartItems, setCartItems] = useState<CartProduct[]>([]);
+type Props = {
+  cartItems: CartProduct[];
+  currentCurrency: string;
+  setPreviousImage: (item: CartProduct) => void;
+  setNextImage: (item: CartProduct) => void;
+  setProductAmountUp: (item: CartProduct) => void;
+  setProductAmountDown: (item: CartProduct) => void;
+  selectAttributeHandler: (
+    item: CartProduct,
+    attribute: string,
+    value: string,
+    displayValue: string
+  ) => void;
+};
 
-  const updateComponent = useCallback(() => {
-    const cart = cartService.get();
-    if (cart) setCartItems(cart);
-  }, []);
-
-  useEffect(() => {
-    updateComponent();
-  }, [updateComponent]);
-
-  const setAmountUp = useCallback((item: CartProduct): void => {
-    const cartItem = cartService.getItem(item);
-    cartItem.quantity++;
-    cartService.update(cartItem);
-    setCartItems((state) => {
-      return state.map((cartItem: CartProduct) => {
-        if (
-          cartItem.id === item.id &&
-          _.isEqual(item.values, cartItem.values)
-        ) {
-          return { ...cartItem, quantity: cartItem.quantity + 1 };
-        }
-        return cartItem;
-      });
-    });
-  }, []);
-
-  const setAmountDown = useCallback((item: CartProduct): void => {
-    const cartItem = cartService.getItem(item);
-    cartItem.quantity = Math.max(--cartItem.quantity, 0);
-    cartService.update(cartItem);
-    setCartItems((state) => {
-      const updatedCartItems = state.map((cartItem: CartProduct) => {
-        if (
-          cartItem.id === item.id &&
-          _.isEqual(item.values, cartItem.values)
-        ) {
-          const newQuantity = Math.max(cartItem.quantity - 1, 0);
-          return { ...cartItem, quantity: newQuantity };
-        }
-        return cartItem;
-      });
-
-      const filteredCartItems = updatedCartItems.filter(
-        (cartItem: CartProduct) => cartItem.quantity > 0
-      );
-
-      return filteredCartItems;
-    });
-  }, []);
-
-  const countCost = useCallback(() => {
-    return cartService.totalCost(currentCurrency.data.currency.currency);
-  }, [currentCurrency.data]);
-
-  const selectAttributeHandler = useCallback(
-    (
-      item: CartProduct,
-      attribute: string,
-      value: string,
-      displayValue: string
-    ) => {
-      const cartItem = cartService.getItem(item);
-      if (cartItem) {
-        cartItem.values[attribute] = value || displayValue;
-        cartService.updateProperties(item, cartItem);
-      }
-      updateComponent();
-    },
-    [updateComponent]
-  );
-
-  const setNextImage = useCallback(
-    (item: CartProduct, index: number) => {
-      const cartItem = cartService.getItem(item);
-      if (cartItem.activeImageIndx < cartItem.photo.length - 1) {
-        cartItem.activeImageIndx++;
-      } else {
-        cartItem.activeImageIndx = 0;
-      }
-      cartService.update(cartItem);
-      updateComponent();
-    },
-    [updateComponent]
-  );
-
-  const setPreviousImage = useCallback(
-    (item: CartProduct, index: number) => {
-      const cartItem = cartService.getItem(item);
-      if (cartItem.activeImageIndx > 0) {
-        cartItem.activeImageIndx--;
-      } else {
-        cartItem.activeImageIndx = cartItem.photo.length - 1;
-      }
-      cartService.update(cartItem);
-      updateComponent();
-    },
-    [updateComponent]
-  );
+function Cart(props: Props) {
+  const {
+    cartItems,
+    currentCurrency,
+    setPreviousImage,
+    setNextImage,
+    setProductAmountDown,
+    setProductAmountUp,
+    selectAttributeHandler,
+  } = props;
 
   return (
     <section>
@@ -129,12 +48,8 @@ function Cart() {
                   <p className="cart-first-text">{item.name}</p>
                   <p className="cart-first-text weight-normal">{item.id}</p>
                   <p className="cart-goods-padding">
-                    {
-                      CurrencyReConverter[
-                        currentCurrency.data.currency.currency
-                      ]
-                    }
-                    {item.prices[currentCurrency.data.currency.currency]}
+                    {CurrencyReConverter[currentCurrency]}
+                    {item.prices[currentCurrency]}
                   </p>
                 </NavLink>
 
@@ -203,14 +118,14 @@ function Cart() {
 
               <div className="cart-center-flex-element">
                 <button
-                  onClick={() => setAmountUp(item)}
+                  onClick={() => setProductAmountUp(item)}
                   className="cart-window-counter-btn"
                 >
                   +
                 </button>
                 {item.quantity}
                 <button
-                  onClick={() => setAmountDown(item)}
+                  onClick={() => setProductAmountDown(item)}
                   className="cart-window-counter-btn"
                 >
                   -
@@ -224,11 +139,11 @@ function Cart() {
                   alt="picture1"
                 />
                 <div
-                  onClick={() => setPreviousImage(item, index)}
+                  onClick={() => setPreviousImage(item)}
                   className="arrow-rev arrow-left-rev pointer"
                 />
                 <div
-                  onClick={() => setNextImage(item, index)}
+                  onClick={() => setNextImage(item)}
                   className="arrow-rev arrow-right-rev pointer"
                 />
               </div>

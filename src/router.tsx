@@ -1,17 +1,19 @@
-import React from "react";
+import React, { Suspense } from "react";
 import {
   Route,
   createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
 import Home from "./components/home";
-import NotFoundPage from "./pages/NotFoundPage";
-import Goods from "./components/goods";
+import NotFoundPage from "./pages/404/NotFoundPage";
 import Cart from "./components/cart";
 import Header from "./components/header";
 import WithCategoryValidation from "./hocs/withCategoryValidation";
 import WithProductIdValidation from "./hocs/withProductIdValidation";
 import ErrorBoundary from "./errorBoundary";
+import Loading from "./pages/loading";
+
+const LazyGoods = React.lazy(() => import("./components/goods"));
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -23,14 +25,7 @@ const router = createBrowserRouter(
         </ErrorBoundary>
       }
     >
-      <Route
-        index
-        element={
-          <ErrorBoundary>
-            <Home />
-          </ErrorBoundary>
-        }
-      />
+      <Route index element={<Home />} />
       <Route
         path="/:categoryName"
         element={
@@ -45,11 +40,13 @@ const router = createBrowserRouter(
         path="/:categoryName/:productId"
         element={
           <ErrorBoundary>
-            <WithCategoryValidation>
-              <WithProductIdValidation>
-                <Goods />
-              </WithProductIdValidation>
-            </WithCategoryValidation>
+            <Suspense fallback={<Loading />}>
+              <WithCategoryValidation>
+                <WithProductIdValidation>
+                  <LazyGoods />
+                </WithProductIdValidation>
+              </WithCategoryValidation>
+            </Suspense>
           </ErrorBoundary>
         }
       />

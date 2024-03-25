@@ -8,7 +8,7 @@ function DefaultErrorMessage() {
     <div className="container">
       <div className="row">
         <h1>Error</h1>
-        <h2>UH OH! You're lost.</h2>
+        <h2>UH OH! You{"\u0027"}re lost.</h2>
         <p>
           Something went wrong. Please, try later. But you can click the button
           below to go back to the homepage.

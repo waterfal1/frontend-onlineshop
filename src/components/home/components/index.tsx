@@ -1,47 +1,25 @@
-import React, { useCallback } from "react";
+import React from "react";
 
 import cart from "../../../assets/cart.svg";
 import { Product } from "../../../models/Product";
-import { NavLink, useOutletContext } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { CurrencyReConverter } from "../../../utils/currencyEnum";
-import { cartService } from "../../../businessLayer";
-import { cartProductMapper } from "../mappers";
 
 import "./styles.css";
-import { useUser } from "../../header/containers/headerContainer";
 
 type Props = {
-  currentCurrency: { currency: string };
-  currentCategory: { category: string };
+  currentCurrency: string;
   products: Product[];
-  selectedGoodId: number;
+  addGoodToCart: (item: Product) => void;
 };
 
 function Home(props: Props) {
-  const { currentCurrency } = props;
-
-  const { user } = useUser();
-  // console.log(user(), "updatecartitems");
-
-  const addGood = useCallback(
-    (item: Product) => {
-      if (item.inStock) {
-        const cartProduct = cartProductMapper(item);
-        const cartItem = cartService.getItem(cartProduct);
-        if (cartItem) {
-          cartItem.quantity++;
-          cartService.update(cartItem);
-        } else cartService.addItem(cartProduct);
-      }
-      user();
-    },
-    [user]
-  );
+  const { currentCurrency, products, addGoodToCart } = props;
 
   return (
     <main>
       <div className="category-block-on-page">
-        {props.products.map((item) => (
+        {products.map((item) => (
           <div key={item.id} className="product-card">
             <div className={item.inStock ? "in-stock" : "not-in-stock"}>
               <NavLink to={`/${item.category}/${item.id}`}>
@@ -51,16 +29,15 @@ function Home(props: Props) {
                 )}
                 <p className="goods-name">{item.name}</p>
                 <p className="goods-cost">
-                  {CurrencyReConverter[currentCurrency.currency]}
+                  {CurrencyReConverter[currentCurrency]}
                   {
-                    item.prices.find(
-                      (el) => el.currency === currentCurrency.currency
-                    )?.amount
+                    item.prices.find((el) => el.currency === currentCurrency)
+                      ?.amount
                   }
                 </p>
               </NavLink>
               <img
-                onClick={() => addGood(item)}
+                onClick={() => addGoodToCart(item)}
                 className="on-hover-cart"
                 src={cart}
                 alt="Cart"

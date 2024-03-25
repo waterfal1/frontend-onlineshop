@@ -27,20 +27,27 @@ export default class CartService implements ICartService {
     return CurrencyReConverter[currency] + cost.toFixed(2);
   }
 
+  public setItemAmountUp(item: CartProduct): void {
+    this.cartStorage.setItemAmountUp(item);
+  }
+
+  public setItemAmountDown(item: CartProduct): void {
+    this.cartStorage.setItemAmountDown(item);
+  }
+
   public update(item: CartProduct): void {
     this.cartStorage.update(item);
   }
 
-  public updateProperties(oldItem: CartProduct, newItem: CartProduct): void {
-    this.cartStorage.updateProperties(oldItem, newItem);
+  public updateSelectedProperties(
+    oldItem: CartProduct,
+    newItem: CartProduct
+  ): void {
+    this.cartStorage.updateSelectedProperties(oldItem, newItem);
   }
 
   public addItem(item: CartProduct): void {
     this.cartStorage.addItem(item);
-  }
-
-  public removeItem(item: CartProduct): void {
-    this.cartStorage.removeItem(item);
   }
 
   public reset(): void {

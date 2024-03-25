@@ -7,9 +7,7 @@ export interface CartProduct {
   prices: { [key: string]: number };
   photo: string[];
   activeImageIndx: number;
-  // attributeId: string;
   attributes: { [key: string]: AttributeItem[] };
-  // value: string;
   values: { [key: string]: string };
   quantity: number;
 }

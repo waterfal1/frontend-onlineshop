@@ -4,8 +4,9 @@ export interface ICartStorage {
   get(): CartProduct[];
   getItem(item: CartProduct): CartProduct;
   addItem(item: CartProduct): void;
-  removeItem(item: CartProduct): void;
-  updateProperties(oldItem: CartProduct, newItem: CartProduct): void;
+  updateSelectedProperties(oldItem: CartProduct, newItem: CartProduct): void;
   update(item: CartProduct): void;
+  setItemAmountUp(item: CartProduct): void;
+  setItemAmountDown(item: CartProduct): void;
   reset(): void;
 }

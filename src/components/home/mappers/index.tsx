@@ -17,7 +17,6 @@ export const cartProductMapper = (product: Product): CartProduct => {
       },
       {}
     ),
-    // attributeId: product.attributes[0].id,
     activeImageIndx: 0,
     attributes: product.attributes.reduce(
       (acc: { [key: string]: AttributeItem[] }, curr: Attribute) => {
@@ -33,7 +32,6 @@ export const cartProductMapper = (product: Product): CartProduct => {
       },
       {}
     ),
-
     quantity: 1,
   };
 };

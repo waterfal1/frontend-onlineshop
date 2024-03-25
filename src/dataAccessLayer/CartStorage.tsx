@@ -29,7 +29,26 @@ export default class CartStorage implements ICartStorage {
     this.storage.setItem(CartStorage.CART, cart);
   }
 
-  public updateProperties(oldItem: CartProduct, newItem: CartProduct): void {
+  public setItemAmountUp(item: CartProduct): void {
+    const cartItem = this.getItem(item);
+    if (cartItem) {
+      cartItem.quantity++;
+      this.update(cartItem);
+    } else {
+      this.addItem(item);
+    }
+  }
+
+  public setItemAmountDown(item: CartProduct): void {
+    const cartItem = this.getItem(item);
+    cartItem.quantity = Math.max(--cartItem.quantity, 0);
+    this.update(cartItem);
+  }
+
+  public updateSelectedProperties(
+    oldItem: CartProduct,
+    newItem: CartProduct
+  ): void {
     let cart = this.get();
 
     const oldIndex = cart.findIndex(
@@ -48,23 +67,13 @@ export default class CartStorage implements ICartStorage {
     this.storage.setItem(CartStorage.CART, cart);
   }
 
-  public removeItem(item: CartProduct): void {
-    let cart = this.get();
-    const existingProductIndex = cart.findIndex(
-      (e) => _.isEqual(item.values, e.values) && e.id === item.id
-    );
-    if (existingProductIndex !== -1) {
-      cart.splice(existingProductIndex, 1);
-    }
-    this.storage.setItem(CartStorage.CART, cart);
-  }
-
   public update(item: CartProduct): void {
     let cart = this.get();
 
     const existingProductIndex = cart.findIndex(
       (e) => _.isEqual(item.values, e.values) && e.id === item.id
     );
+
     if (item.quantity === 0) {
       cart.splice(existingProductIndex, 1);
     } else if (existingProductIndex !== -1) {

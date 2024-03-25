@@ -1,22 +1,19 @@
-import { InMemoryCache, makeVar, ReactiveVar } from "@apollo/client";
-import { GoodId } from "./models/SelectedGood";
-import { Category } from "./models/Category";
-import { Currency } from "./models/Currency";
+import { InMemoryCache, makeVar } from "@apollo/client";
+
+const initializeCurrencyVar = () => {
+  const storedCurrency = localStorage.getItem("currency");
+  return storedCurrency ? JSON.parse(storedCurrency) : "USD";
+};
+
+export const updateCurrencyVar = (newCurrency: string) => {
+  currencyVar(newCurrency);
+  localStorage.setItem("currency", JSON.stringify(newCurrency));
+};
 
 const cache: InMemoryCache = new InMemoryCache({
   typePolicies: {
     Query: {
       fields: {
-        selectedGoodId: {
-          read() {
-            return selectedGoodIdVar();
-          },
-        },
-        category: {
-          read() {
-            return categoryVar();
-          },
-        },
         currency: {
           read() {
             return currencyVar();
@@ -29,9 +26,4 @@ const cache: InMemoryCache = new InMemoryCache({
 
 export { cache };
 
-export const selectedGoodIdVar: ReactiveVar<GoodId> = makeVar<GoodId>({
-  selectedGoodId: 0,
-});
-
-export const categoryVar = makeVar<Category>({ category: "All" });
-export const currencyVar = makeVar<Currency>({ currency: "USD" });
+export const currencyVar = makeVar<string>(initializeCurrencyVar());

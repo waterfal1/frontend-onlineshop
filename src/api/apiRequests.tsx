@@ -1,33 +1,26 @@
-import { useQuery, gql, TypedDocumentNode } from "@apollo/client";
-import { Product } from "../models/Product";
-
-interface ProductId {
-  id: string;
-}
+import { gql } from "@apollo/client";
 
 export const GET_PRODUCT = gql`
   query product($input: ProductInput) {
     product(input: $input) {
-      product {
+      id
+      name
+      inStock
+      gallery
+      description
+      category
+      attributes {
         id
         name
-        inStock
-        gallery
-        description
-        category
-        attributes {
+        items {
+          displayValue
+          value
           id
-          name
-          items {
-            displayValue
-            value
-            id
-          }
         }
-        prices {
-          currency
-          amount
-        }
+      }
+      prices {
+        currency
+        amount
       }
     }
   }

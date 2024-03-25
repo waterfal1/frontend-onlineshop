@@ -12,15 +12,13 @@
   "dependencies": {
     "@apollo/client": "^3.9.6",
     "@types/lodash": "^4.14.202",
-    "apollo3-cache-persist": "^0.14.1",
     "graphql": "^16.8.1",
     "html-react-parser": "^5.1.8",
     "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.22.3",
-    "typescript": "^5.4.2",
-    "use-local-storage-state": "^19.1.0"
+    "typescript": "^5.4.2"
   },
   "devDependencies": {
     "@types/react": "^18.2.64",

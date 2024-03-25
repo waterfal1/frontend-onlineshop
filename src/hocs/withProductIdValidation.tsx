@@ -1,8 +1,10 @@
 import React, { ReactNode } from "react";
 import { useParams } from "react-router-dom";
-import Notfoundpage from "../pages/NotFoundPage";
-import { IS_VALID_CATEGORY, IS_VALID_PRODUCT_ID } from "../api/apiRequests";
 import { useQuery } from "@apollo/client";
+
+import NotFoundPage from "../pages/404/NotFoundPage";
+import { IS_VALID_PRODUCT_ID } from "../api/apiRequests";
+import Loading from "../pages/loading";
 
 interface WithProductIdValidationProps {
   children: ReactNode;
@@ -12,16 +14,15 @@ const WithProductIdValidation: React.FC<WithProductIdValidationProps> = ({
   children,
 }: WithProductIdValidationProps) => {
   const params = useParams();
-  console.log(params, "pppararams");
 
   const { loading, error, data } = useQuery(IS_VALID_PRODUCT_ID, {
     variables: { input: { id: params.productId } },
   });
 
-  if (loading) return;
-  console.log(params.productId, "222", data);
+  if (loading) return <Loading />;
+
   if (!data.isValidProductId.isValidProductId || error) {
-    return <Notfoundpage />;
+    return <NotFoundPage />;
   }
 
   return children;

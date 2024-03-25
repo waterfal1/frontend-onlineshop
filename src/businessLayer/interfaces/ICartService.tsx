@@ -4,9 +4,10 @@ export interface ICartService {
   get(): CartProduct[];
   update(item: CartProduct): void;
   reset(): void;
-  totalCost: (currency: any) => string;
-  updateProperties(oldItem: CartProduct, newItem: CartProduct): void;
+  totalCost: (currency: string) => string;
+  updateSelectedProperties(oldItem: CartProduct, newItem: CartProduct): void;
   getItem(item: CartProduct): CartProduct;
-  removeItem(item: CartProduct): void;
+  setItemAmountUp(item: CartProduct): void;
+  setItemAmountDown(item: CartProduct): void;
   addItem(item: CartProduct): void;
 }
