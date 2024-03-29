@@ -1,5 +1,5 @@
-import React from "react";
-import { Link, NavLink, Outlet, PathMatch } from "react-router-dom";
+import React, { Dispatch, SetStateAction } from "react";
+import { Link, NavLink, Outlet } from "react-router-dom";
 
 import logo from "../../../assets/a-logo.svg";
 import cartTop from "../../../assets/cartTop.svg";
@@ -7,15 +7,15 @@ import { CustomLink } from "../../customLink";
 import { CurrencyReConverter } from "../../../utils/currencyEnum";
 import { CartProduct } from "../../../models/CartProduct";
 import { Product } from "../../../models/Product";
+import SelectPropertiesContainer from "../../sharedComponents/selectProperties/containers/selectPropertiesContainer";
+import PriceComponent from "../../sharedComponents/price";
 
 import "./styles.css";
 
 type Props = {
-  categoryName: string;
   cartItems: CartProduct[];
   isCartOpen: Boolean;
   isCurrencyOpen: Boolean;
-  isHomeRoute: PathMatch<string>;
   currentCurrency: string;
   products: Product[];
   cartVisibilityHandler: () => void;
@@ -23,16 +23,13 @@ type Props = {
   countCost: () => string;
   currencyVisibility: () => void;
   navbarLinks: () => React.ReactNode;
-  setProductAmountUp: (item: CartProduct) => void;
-  setProductAmountDown: (item: CartProduct) => void;
+  setCartItems: Dispatch<SetStateAction<CartProduct[]>>;
   updateCartItems: () => void;
 };
 
 function Header(props: Props) {
   const {
-    categoryName,
     currentCurrency,
-    isHomeRoute,
     cartItems,
     isCartOpen,
     isCurrencyOpen,
@@ -42,8 +39,7 @@ function Header(props: Props) {
     countCost,
     currencyVisibility,
     navbarLinks,
-    setProductAmountUp,
-    setProductAmountDown,
+    setCartItems,
     updateCartItems,
   } = props;
   return (
@@ -104,67 +100,22 @@ function Header(props: Props) {
                   cartItems.map((item: CartProduct) => {
                     return (
                       <div
-                        key={
-                          item.id + JSON.stringify(item.values) + Math.random()
-                        }
+                        key={Math.random()}
                         className="cart-window-container"
                       >
                         <div className="window-first-container">
-                          <p className="cart-window-name">{item.name}</p>
-                          <p className="cart-window-name">{item.id}</p>
-                          <p className="goods-cost">
-                            {CurrencyReConverter[currentCurrency]}
-                            {item.prices[currentCurrency]}
-                          </p>
-                          <div className="cart-window-attribute-row">
-                            {Object.entries(item.values).map(([key, value]) => {
-                              return (
-                                <React.Fragment
-                                  key={key + value + Math.random()}
-                                >
-                                  <div
-                                    style={{
-                                      background: value,
-                                      color: value,
-                                    }}
-                                    className="cart-window-attributes"
-                                  >
-                                    {key}:
-                                  </div>
-                                  <div
-                                    key={key + value}
-                                    style={{
-                                      background: value,
-                                      color: value,
-                                    }}
-                                    className="cart-window-attributes"
-                                  >
-                                    {value}
-                                  </div>
-                                </React.Fragment>
-                              );
-                            })}
-                          </div>
-                        </div>
-                        <div className="cart-window-center-flex-element">
-                          <button
-                            onClick={() => setProductAmountUp(item)}
-                            className="cart-window-counter-btn"
-                          >
-                            +
-                          </button>
-                          {item.quantity}
-                          <button
-                            onClick={() => setProductAmountDown(item)}
-                            className="cart-window-counter-btn"
-                          >
-                            -
-                          </button>
+                          <SelectPropertiesContainer
+                            product={item}
+                            isSelectAvailable={false}
+                            isAddToCartAvailable={false}
+                            price={<PriceComponent prices={item.prices} />}
+                            setCartItems={setCartItems}
+                          />
                         </div>
                         <div className="cart-window-last-flex-element">
                           <img
                             className="cart-window-img"
-                            src={item.photo[0]}
+                            src={item.gallery[0]}
                             alt="picture1"
                           />
                         </div>
@@ -177,7 +128,7 @@ function Header(props: Props) {
                   <p>{countCost()}</p>
                 </div>
                 <div className="cart-window-buttons">
-                  <NavLink to="/cart">
+                  <Link to="/cart">
                     <button
                       onClick={cartVisibilityHandler}
                       className="cart-window-view-btn"
@@ -185,7 +136,7 @@ function Header(props: Props) {
                       {" "}
                       VIEW BAG
                     </button>
-                  </NavLink>
+                  </Link>
                   <button className="cart-window-checkout-btn">
                     {" "}
                     CHECK OUT
@@ -195,9 +146,6 @@ function Header(props: Props) {
             )}
           </div>
         </nav>
-        <div className="category-name">
-          {categoryName ? categoryName.toUpperCase() : isHomeRoute && "All"}
-        </div>
       </header>
 
       <Outlet context={{ updateCartItems }} />

@@ -9,13 +9,6 @@ button {
   font-family:"Nunito Sans";
 }
 
-h1 {
-  font-size: 7.5em;
-  margin: 15px 0px;
-  font-weight:bold;
-}
-
-
 .container {
     display: flex;
     align-items: center;

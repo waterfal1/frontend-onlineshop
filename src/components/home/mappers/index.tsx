@@ -1,7 +1,5 @@
-import { Attribute } from "../../../models/Attribute";
-import { AttributeItem } from "../../../models/AttributeItem";
+import { CartAttribute } from "../../../models/Attribute";
 import { CartProduct } from "../../../models/CartProduct";
-import { Price } from "../../../models/Price";
 import { Product } from "../../../models/Product";
 
 export const cartProductMapper = (product: Product): CartProduct => {
@@ -9,29 +7,19 @@ export const cartProductMapper = (product: Product): CartProduct => {
     id: product.id,
     name: product.name,
     category: product.category,
-    photo: product.gallery,
-    prices: product.prices.reduce(
-      (acc: { [key: string]: number }, curr: Price) => {
-        acc[curr.currency] = curr.amount;
-        return acc;
-      },
-      {}
-    ),
+    gallery: product.gallery,
+    inStock: product.inStock,
+    description: product.description,
+    prices: product.prices,
     activeImageIndx: 0,
-    attributes: product.attributes.reduce(
-      (acc: { [key: string]: AttributeItem[] }, curr: Attribute) => {
-        acc[curr.id] = curr.items;
-        return acc;
-      },
-      {}
-    ),
-    values: product.attributes.reduce(
-      (acc: { [key: string]: string }, curr: Attribute) => {
-        acc[curr.id] = curr.items[0].value || curr.items[0].displayValue;
-        return acc;
-      },
-      {}
-    ),
+    attributes: product.attributes.map((el) => {
+      const newElement = { ...el };
+      newElement.items = el.items.map((item, index) => {
+        const newItem = { ...item, isSelected: index === 0 ? true : false };
+        return newItem;
+      });
+      return newElement as CartAttribute;
+    }),
     quantity: 1,
   };
 };

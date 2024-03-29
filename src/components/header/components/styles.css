@@ -257,6 +257,7 @@ a {
   width: 28px;
   height: 28px;
   font-size: 24px;
+  cursor: pointer;
   display: flex;
   margin: 16px 0;
   justify-content: center;
@@ -398,7 +399,7 @@ select:not(internal-list-box) {
 }
 
 .category-name {
-  font-style: $normalText;
+  text-transform: uppercase;
   font-weight: normal;
   font-size: 42px;
   width: 28%;

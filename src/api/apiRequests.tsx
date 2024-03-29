@@ -15,38 +15,11 @@ export const GET_PRODUCT = gql`
         items {
           displayValue
           value
-          id
         }
       }
       prices {
         currency
         amount
-      }
-    }
-  }
-`;
-
-export const GET_CATEGORY = gql`
-  query category($input: CategoryInput) {
-    category(input: $input) {
-      name
-      products {
-        id
-        name
-        inStock
-        gallery
-        category
-        attributes {
-          id
-          name
-          items {
-            displayValue
-          }
-        }
-        prices {
-          currency
-          amount
-        }
       }
     }
   }
@@ -89,15 +62,19 @@ export const GET_PARTIAL_CATEGORY_DATA = gql`
   }
 `;
 
-export const GET_ALL_DATA = gql`
-  query {
-    category {
+export const GET_CATEGORY = gql`
+  query category($input: CategoryInput) {
+    category(input: $input) {
       name
       products {
         id
         name
+        inStock
         gallery
+        description
+        category
         attributes {
+          id
           name
           items {
             displayValue

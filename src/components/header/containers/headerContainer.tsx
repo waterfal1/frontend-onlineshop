@@ -1,6 +1,4 @@
 import React, { useEffect, useCallback, useState } from "react";
-import _ from "lodash";
-import { useMatch, useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 
 import { GET_PARTIAL_CATEGORY_DATA } from "../../../api/apiRequests";
@@ -15,9 +13,6 @@ import { CartProduct } from "../../../models/CartProduct";
 import Header from "../components/header";
 
 function HeaderContainer() {
-  const match = useMatch({ path: "/", end: true });
-  const params = useParams();
-
   const { data, loading, error } = useQuery(GET_PARTIAL_CATEGORY_DATA);
   const currentCurrency = useQuery(GET_LOCAL_CURRENCY);
 
@@ -74,62 +69,22 @@ function HeaderContainer() {
     return cartService.totalCost(currentCurrency.data.currency);
   }, [currentCurrency.data]);
 
-  const setProductAmountUp = useCallback((item: CartProduct) => {
-    cartService.setItemAmountUp(item);
-    setCartItems((state) => {
-      return state.map((cartItem: CartProduct) => {
-        if (
-          cartItem.id === item.id &&
-          _.isEqual(item.values, cartItem.values)
-        ) {
-          return { ...cartItem, quantity: cartItem.quantity + 1 };
-        }
-        return cartItem;
-      });
-    });
-  }, []);
-
-  const setProductAmountDown = useCallback((item: CartProduct) => {
-    cartService.setItemAmountDown(item);
-    setCartItems((state) => {
-      const updatedCartItems = state.map((cartItem: CartProduct) => {
-        if (
-          cartItem.id === item.id &&
-          _.isEqual(item.values, cartItem.values)
-        ) {
-          const newQuantity = Math.max(cartItem.quantity - 1, 0);
-          return { ...cartItem, quantity: newQuantity };
-        }
-        return cartItem;
-      });
-
-      const filteredCartItems = updatedCartItems.filter(
-        (cartItem: CartProduct) => cartItem.quantity > 0
-      );
-
-      return filteredCartItems;
-    });
-  }, []);
-
   if (error) return <DefaultErrorMessage />;
   if (loading) return null;
 
   return (
     <Header
-      categoryName={params.categoryName}
       cartItems={cartItems}
       currentCurrency={currentCurrency.data.currency}
       isCartOpen={isCartOpen}
       isCurrencyOpen={isCurrencyOpen}
-      isHomeRoute={match}
       products={data.category.products}
       cartVisibilityHandler={cartVisibilityHandler}
       changeCurrency={changeCurrency}
       countCost={countCost}
       currencyVisibility={currencyVisibilityHandler}
       navbarLinks={navbarLinks}
-      setProductAmountUp={setProductAmountUp}
-      setProductAmountDown={setProductAmountDown}
+      setCartItems={setCartItems}
       updateCartItems={updateCartItems}
     />
   );

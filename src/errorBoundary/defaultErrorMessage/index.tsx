@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 import "./styles.css";
 
@@ -13,9 +13,9 @@ function DefaultErrorMessage() {
           Something went wrong. Please, try later. But you can click the button
           below to go back to the homepage.
         </p>
-        <Link to="/">
+        <NavLink to="/">
           <button className="btn green">HOME</button>
-        </Link>
+        </NavLink>
       </div>
     </div>
   );

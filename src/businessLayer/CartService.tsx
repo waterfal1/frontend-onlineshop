@@ -21,7 +21,10 @@ export default class CartService implements ICartService {
   public totalCost(currency: string): string {
     const cart = this.cartStorage.get();
     const cost = cart.reduce((acc: number, curr: CartProduct) => {
-      let newAcc = acc + curr.quantity * curr.prices[currency];
+      let newAcc =
+        acc +
+        curr.quantity *
+          curr.prices.find((e) => e.currency === currency)?.amount;
       return newAcc;
     }, 0);
     return CurrencyReConverter[currency] + cost.toFixed(2);
