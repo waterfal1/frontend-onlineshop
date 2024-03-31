@@ -1,6 +1,10 @@
-import { gql } from "@apollo/client";
+import { TypedDocumentNode, gql } from "@apollo/client";
 
-export const GET_LOCAL_CURRENCY = gql`
+interface CurrencyData {
+  currency: string;
+}
+
+export const GET_LOCAL_CURRENCY: TypedDocumentNode<CurrencyData> = gql`
   query GetCurrency {
     currency @client
   }

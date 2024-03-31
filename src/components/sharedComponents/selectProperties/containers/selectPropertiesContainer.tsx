@@ -111,7 +111,6 @@ function SelectPropertiesContainer(props: Props) {
     (item: CartProduct) => {
       if (item.inStock) {
         let newItem = getAttributes(item);
-
         cartService.setItemAmountUp(newItem);
       }
     },

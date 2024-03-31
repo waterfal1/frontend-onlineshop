@@ -62,46 +62,56 @@ function SelectProperties(props: Props) {
             </p>
           </NavLink>
 
-          {product.attributes.map((attr: CartAttribute, attrIndex: number) => (
-            <div
-              key={product.id + attr.items.map((el) => el.isSelected).join("_")}
-              className="attributes-columns"
-            >
-              <p className="goods-attribute"> {attr.name}:</p>
+          {product.attributes.map((attr: CartAttribute, attrIndex: number) => {
+            return (
+              <div
+                key={product.id + attr.id + attrIndex}
+                className="attributes-columns"
+              >
+                <p className="goods-attribute"> {attr.name}:</p>
 
-              <div className="goods-attribute-row">
-                {attr.items.map((item, index) => {
-                  if (!isSelectAvailable && !item?.isSelected) {
-                    return null;
-                  }
+                <div className="goods-attribute-row">
+                  {attr.items.map((item, index) => {
+                    if (!isSelectAvailable && !item?.isSelected) {
+                      return null;
+                    }
 
-                  return (
-                    <div
-                      key={product.id + item.id + item.isSelected.toString()}
-                      style={{
-                        background: item.value,
-                        color: item.value,
-                        border: `30px solid ${item.value}`,
-                        boxShadow: "0 0 4px 0 rgba(50, 50, 50, 1)",
-                      }}
-                      onClick={() =>
-                        isSelectAvailable
-                          ? selectAttribute(attrIndex, index, product)
-                          : {}
-                      }
-                      className={`goods-attribute-box ${
-                        selectedAttributes[attrIndex] === index
-                          ? "goods-selected"
-                          : ""
-                      } pointer`}
-                    >
-                      {item.value}
-                    </div>
-                  );
-                })}
+                    return (
+                      <div
+                        key={
+                          product.id +
+                          "_" +
+                          item.id +
+                          "_" +
+                          item.id +
+                          "_" +
+                          item.isSelected
+                        }
+                        style={{
+                          background: item.value,
+                          color: item.value,
+                          border: `30px solid ${item.value}`,
+                          boxShadow: "0 0 4px 0 rgba(50, 50, 50, 1)",
+                        }}
+                        onClick={() =>
+                          isSelectAvailable
+                            ? selectAttribute(attrIndex, index, product)
+                            : {}
+                        }
+                        className={`goods-attribute-box ${
+                          selectedAttributes[attrIndex] === index
+                            ? "goods-selected"
+                            : ""
+                        } pointer`}
+                      >
+                        {item.value}
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
           {price}
           {isAddToCartAvailable && (
             <button

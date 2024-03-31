@@ -3,7 +3,7 @@ import React, { Dispatch, SetStateAction } from "react";
 import { CartProduct } from "../../../models/CartProduct";
 import countCost from "../../../services/countCost";
 import PriceComponent from "../../sharedComponents/price";
-import SelectPropertiesContainer from "../../sharedComponents/selectProperties/containers/selectPropertiesContainer";
+import SelectPropertiesContainer from "../../sharedComponents/selectProperties";
 
 import "./styles.css";
 
@@ -25,7 +25,6 @@ function Cart(props: Props) {
     setNextImage,
     setCartItems,
   } = props;
-
   return (
     <>
       <div className="category-name">{pageName}</div>
@@ -33,17 +32,9 @@ function Cart(props: Props) {
         {cartItems.length === 0 ? (
           <h1 className="cart-name">You cart is empty</h1>
         ) : (
-          cartItems.map((item: CartProduct) => {
+          cartItems.map((item: CartProduct, index: number) => {
             return (
-              <div
-                key={
-                  item.id +
-                  item.attributes
-                    .map((e) => e.items.map((i) => i.isSelected))
-                    .join("_")
-                }
-                className="cart-common-container"
-              >
+              <div key={item.id + index} className="cart-common-container">
                 <SelectPropertiesContainer
                   product={item}
                   price={<PriceComponent prices={item.prices} />}

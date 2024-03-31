@@ -52,8 +52,6 @@ function CartContainer() {
     [updateComponent]
   );
 
-  console.log("cart");
-
   return (
     <Cart
       cartItems={cartItems}

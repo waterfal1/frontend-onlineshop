@@ -96,15 +96,10 @@ function Header(props: Props) {
                   {cartItems.length} items
                 </p>
                 {cartItems &&
-                  cartItems.map((item: CartProduct) => {
+                  cartItems.map((item: CartProduct, index) => {
                     return (
                       <div
-                        key={
-                          item.id +
-                          item.attributes.map((e) =>
-                            e.items.map((i) => i.isSelected).join("_")
-                          )
-                        }
+                        key={item.id + "_" + index}
                         className="cart-window-container"
                       >
                         <div className="window-first-container">

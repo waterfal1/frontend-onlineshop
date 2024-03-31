@@ -2,7 +2,7 @@ import React from "react";
 
 import { CartProduct } from "../../../models/CartProduct";
 import PriceComponent from "../../sharedComponents/price";
-import SelectPropertiesContainer from "../../sharedComponents/selectProperties/containers/selectPropertiesContainer";
+import SelectPropertiesContainer from "../../sharedComponents/selectProperties";
 
 import "./styles.css";
 

@@ -1,15 +1,15 @@
-import React, { useEffect, useCallback, useState } from "react";
 import { useQuery } from "@apollo/client";
+import React, { useEffect, useCallback, useState } from "react";
 
 import { GET_PARTIAL_CATEGORY_DATA } from "../../../api/apiRequests";
-import { Product } from "../../../models/Product";
-import { GET_LOCAL_CURRENCY } from "../../../operations/queries";
-import { mutations } from "../../../operations/mutations";
-import { CustomLink } from "../../customLink";
-import { CurrencyConverter } from "../../../utils/currencyEnum";
-import DefaultErrorMessage from "../../../errorBoundary/defaultErrorMessage";
 import { cartService } from "../../../businessLayer";
+import DefaultErrorMessage from "../../../errorBoundary/defaultErrorMessage";
 import { CartProduct } from "../../../models/CartProduct";
+import { Product } from "../../../models/Product";
+import { mutations } from "../../../operations/mutations";
+import { GET_LOCAL_CURRENCY } from "../../../operations/queries";
+import { CurrencyConverter } from "../../../utils/currencyEnum";
+import { CustomLink } from "../../customLink";
 import Header from "../components/header";
 
 function HeaderContainer() {
@@ -64,7 +64,6 @@ function HeaderContainer() {
     setIsCartOpen((state) => !state);
     updateCartItems();
   }, [updateCartItems]);
-
 
   if (error) return <DefaultErrorMessage />;
   if (loading) return null;
