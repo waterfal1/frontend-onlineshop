@@ -1,10 +1,11 @@
-import React from "react";
 import { ApolloClient, ApolloProvider, HttpLink, from } from "@apollo/client";
-import ReactDOM from "react-dom/client";
-import router from "./router";
-import { cache } from "./cache";
-import { RouterProvider } from "react-router-dom";
 import { onError } from "@apollo/client/link/error";
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { RouterProvider } from "react-router-dom";
+
+import { cache } from "./cache";
+import router from "./router";
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors)

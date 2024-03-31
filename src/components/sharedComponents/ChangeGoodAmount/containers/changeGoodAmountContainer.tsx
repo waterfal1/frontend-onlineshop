@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 
-import ChangeGoodAmount from "../components";
 import { CartProduct } from "../../../../models/CartProduct";
+import ChangeGoodAmount from "../components";
 
 type Props = {
   good: CartProduct;
@@ -36,4 +36,4 @@ function ChangeGoodAmountContainer(props: Props) {
   );
 }
 
-export default ChangeGoodAmountContainer;
+export default React.memo(ChangeGoodAmountContainer);

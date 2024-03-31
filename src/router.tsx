@@ -4,13 +4,14 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
-import Home from "./components/home";
-import NotFoundPage from "./pages/404/NotFoundPage";
+
 import Cart from "./components/cart";
 import Header from "./components/header";
+import Home from "./components/home";
+import ErrorBoundary from "./errorBoundary";
 import WithCategoryValidation from "./hocs/withCategoryValidation";
 import WithProductIdValidation from "./hocs/withProductIdValidation";
-import ErrorBoundary from "./errorBoundary";
+import NotFoundPage from "./pages/404/NotFoundPage";
 import Loading from "./pages/loading";
 
 const LazyGoods = React.lazy(() => import("./components/goods"));

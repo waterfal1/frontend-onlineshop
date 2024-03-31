@@ -1,8 +1,9 @@
+import { useQuery } from "@apollo/client";
 import React, { ReactNode } from "react";
 import { useParams } from "react-router-dom";
-import Notfoundpage from "../pages/404/NotFoundPage";
+
 import { IS_VALID_CATEGORY } from "../api/apiRequests";
-import { useQuery } from "@apollo/client";
+import Notfoundpage from "../pages/404/NotFoundPage";
 
 interface WithCategoryValidationProps {
   children: ReactNode;

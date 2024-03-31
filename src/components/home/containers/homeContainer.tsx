@@ -1,17 +1,17 @@
-import React, { useCallback } from "react";
 import { useQuery } from "@apollo/client";
+import React, { useCallback } from "react";
 import { useParams } from "react-router-dom";
 
-import Home from "../components";
-import { GET_LOCAL_CURRENCY } from "../../../operations/queries";
 import { GET_CATEGORY } from "../../../api/apiRequests";
-import Loading from "../../../pages/loading";
-import DefaultErrorMessage from "../../../errorBoundary/defaultErrorMessage";
-import { Product } from "../../../models/Product";
-import { cartProductMapper } from "../mappers";
 import { cartService } from "../../../businessLayer";
-import { useUpdateCart } from "../../../services/useUpdateCartItems";
+import DefaultErrorMessage from "../../../errorBoundary/defaultErrorMessage";
 import { CartProduct } from "../../../models/CartProduct";
+import { Product } from "../../../models/Product";
+import { GET_LOCAL_CURRENCY } from "../../../operations/queries";
+import Loading from "../../../pages/loading";
+import { useUpdateCart } from "../../../services/useUpdateCartItems";
+import Home from "../components";
+import { cartProductMapper } from "../mappers";
 
 function HomeContainer() {
   const params = useParams();

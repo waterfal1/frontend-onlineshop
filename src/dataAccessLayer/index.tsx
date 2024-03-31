@@ -1,6 +1,6 @@
 import CartStorage from "./CartStorage";
-import LocalStorage from "./LocalStorage";
 import { ICartStorage } from "./interfaces/ICartStorage";
+import LocalStorage from "./LocalStorage";
 
 const localStorage = new LocalStorage();
 

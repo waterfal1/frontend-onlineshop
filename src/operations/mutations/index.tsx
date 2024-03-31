@@ -1,4 +1,5 @@
 import { ReactiveVar } from "@apollo/client";
+
 import { currencyVar, updateCurrencyVar } from "../../cache";
 
 function setCurrency(currencyVar: ReactiveVar<string>) {

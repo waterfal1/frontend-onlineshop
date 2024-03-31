@@ -1,9 +1,9 @@
-import React from "react";
 import { useQuery } from "@apollo/client";
+import React from "react";
 
 import { Price } from "../../../models/Price";
-import { CurrencyReConverter } from "../../../utils/currencyEnum";
 import { GET_LOCAL_CURRENCY } from "../../../operations/queries";
+import { CurrencyReConverter } from "../../../utils/currencyEnum";
 
 import "./styles.css";
 

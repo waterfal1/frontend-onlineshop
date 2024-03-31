@@ -1,12 +1,12 @@
-import React, { useCallback, useState } from "react";
 import { useQuery } from "@apollo/client";
+import React, { useCallback, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import Good from "../components/goods";
 import { GET_PRODUCT } from "../../../api/apiRequests";
-import Loading from "../../../pages/loading";
 import DefaultErrorMessage from "../../../errorBoundary/defaultErrorMessage";
+import Loading from "../../../pages/loading";
 import { cartProductMapper } from "../../home/mappers";
+import Good from "../components/goods";
 
 function GoodsContainer() {
   const params = useParams();

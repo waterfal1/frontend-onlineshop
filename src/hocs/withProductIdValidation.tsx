@@ -1,9 +1,9 @@
+import { useQuery } from "@apollo/client";
 import React, { ReactNode } from "react";
 import { useParams } from "react-router-dom";
-import { useQuery } from "@apollo/client";
 
-import NotFoundPage from "../pages/404/NotFoundPage";
 import { IS_VALID_PRODUCT_ID } from "../api/apiRequests";
+import NotFoundPage from "../pages/404/NotFoundPage";
 import Loading from "../pages/loading";
 
 interface WithProductIdValidationProps {

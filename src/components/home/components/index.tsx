@@ -1,9 +1,9 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 import cart from "../../../assets/cart.svg";
-import { NavLink } from "react-router-dom";
-import { CurrencyReConverter } from "../../../utils/currencyEnum";
 import { CartProduct } from "../../../models/CartProduct";
+import { CurrencyReConverter } from "../../../utils/currencyEnum";
 
 import "./styles.css";
 

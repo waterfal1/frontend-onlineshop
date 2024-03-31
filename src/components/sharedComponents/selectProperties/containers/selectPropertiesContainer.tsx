@@ -1,6 +1,5 @@
 import React, { Dispatch, SetStateAction, useCallback, useState } from "react";
 
-import SelectProperties from "../components/selectProperties";
 import { cartService } from "../../../../businessLayer";
 import { CartAttribute } from "../../../../models/Attribute";
 import { CartProduct } from "../../../../models/CartProduct";
@@ -8,6 +7,7 @@ import {
   decreaseCartItem,
   increaseCartItem,
 } from "../../../../utils/changeItemAmount";
+import SelectProperties from "../components/selectProperties";
 
 type Props = {
   product: CartProduct;

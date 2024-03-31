@@ -1,10 +1,10 @@
-import React from "react";
 import parse from "html-react-parser";
+import React from "react";
+import { NavLink } from "react-router-dom";
 
 import { CartAttribute } from "../../../../models/Attribute";
 import { CartProduct } from "../../../../models/CartProduct";
-import { NavLink } from "react-router-dom";
-import ChangeGoodAmountContainer from "../../ChangeGoodAmount/containers/changeGoodAmountContainer";
+import ChangeGoodAmountContainer from "../../ChangeGoodAmount";
 
 import "./styles.css";
 
@@ -63,7 +63,10 @@ function SelectProperties(props: Props) {
           </NavLink>
 
           {product.attributes.map((attr: CartAttribute, attrIndex: number) => (
-            <div key={Math.random()} className="attributes-columns">
+            <div
+              key={product.id + attr.items.map((el) => el.isSelected).join("_")}
+              className="attributes-columns"
+            >
               <p className="goods-attribute"> {attr.name}:</p>
 
               <div className="goods-attribute-row">
@@ -74,7 +77,7 @@ function SelectProperties(props: Props) {
 
                   return (
                     <div
-                      key={Math.random()}
+                      key={product.id + item.id + item.isSelected.toString()}
                       style={{
                         background: item.value,
                         color: item.value,

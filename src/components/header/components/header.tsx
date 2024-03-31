@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction } from "react";
-import { Link, NavLink, Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 
 import logo from "../../../assets/a-logo.svg";
 import cartTop from "../../../assets/cartTop.svg";
@@ -9,6 +9,7 @@ import { CartProduct } from "../../../models/CartProduct";
 import { Product } from "../../../models/Product";
 import SelectPropertiesContainer from "../../sharedComponents/selectProperties/containers/selectPropertiesContainer";
 import PriceComponent from "../../sharedComponents/price";
+import CountCost from "../../../services/countCost";
 
 import "./styles.css";
 
@@ -20,7 +21,6 @@ type Props = {
   products: Product[];
   cartVisibilityHandler: () => void;
   changeCurrency: (index: string) => void;
-  countCost: () => string;
   currencyVisibility: () => void;
   navbarLinks: () => React.ReactNode;
   setCartItems: Dispatch<SetStateAction<CartProduct[]>>;
@@ -36,7 +36,6 @@ function Header(props: Props) {
     products,
     cartVisibilityHandler,
     changeCurrency,
-    countCost,
     currencyVisibility,
     navbarLinks,
     setCartItems,
@@ -100,7 +99,12 @@ function Header(props: Props) {
                   cartItems.map((item: CartProduct) => {
                     return (
                       <div
-                        key={Math.random()}
+                        key={
+                          item.id +
+                          item.attributes.map((e) =>
+                            e.items.map((i) => i.isSelected).join("_")
+                          )
+                        }
                         className="cart-window-container"
                       >
                         <div className="window-first-container">
@@ -125,7 +129,7 @@ function Header(props: Props) {
 
                 <div className="cart-window-total-cost">
                   <p>Total</p>
-                  <p>{countCost()}</p>
+                  <p>{CountCost(currentCurrency)}</p>
                 </div>
                 <div className="cart-window-buttons">
                   <Link to="/cart">

@@ -65,9 +65,6 @@ function HeaderContainer() {
     updateCartItems();
   }, [updateCartItems]);
 
-  const countCost = useCallback(() => {
-    return cartService.totalCost(currentCurrency.data.currency);
-  }, [currentCurrency.data]);
 
   if (error) return <DefaultErrorMessage />;
   if (loading) return null;
@@ -81,7 +78,6 @@ function HeaderContainer() {
       products={data.category.products}
       cartVisibilityHandler={cartVisibilityHandler}
       changeCurrency={changeCurrency}
-      countCost={countCost}
       currencyVisibility={currencyVisibilityHandler}
       navbarLinks={navbarLinks}
       setCartItems={setCartItems}

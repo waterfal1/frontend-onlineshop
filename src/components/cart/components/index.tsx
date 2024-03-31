@@ -1,8 +1,8 @@
 import React, { Dispatch, SetStateAction } from "react";
 
 import { CartProduct } from "../../../models/CartProduct";
+import countCost from "../../../services/countCost";
 import PriceComponent from "../../sharedComponents/price";
-import ChangeGoodAmountContainer from "../../sharedComponents/ChangeGoodAmount/containers/changeGoodAmountContainer";
 import SelectPropertiesContainer from "../../sharedComponents/selectProperties/containers/selectPropertiesContainer";
 
 import "./styles.css";
@@ -19,8 +19,8 @@ type Props = {
 function Cart(props: Props) {
   const {
     cartItems,
-    pageName,
     currentCurrency,
+    pageName,
     setPreviousImage,
     setNextImage,
     setCartItems,
@@ -36,7 +36,12 @@ function Cart(props: Props) {
           cartItems.map((item: CartProduct) => {
             return (
               <div
-                key={item.id + Math.random()}
+                key={
+                  item.id +
+                  item.attributes
+                    .map((e) => e.items.map((i) => i.isSelected))
+                    .join("_")
+                }
                 className="cart-common-container"
               >
                 <SelectPropertiesContainer
@@ -65,6 +70,7 @@ function Cart(props: Props) {
             );
           })
         )}
+        Total cost: {countCost(currentCurrency)}
       </section>
     </>
   );
