@@ -5,7 +5,6 @@ import { useParams } from "react-router-dom";
 import { GET_CATEGORY } from "../../../api/apiRequests";
 import { cartService } from "../../../businessLayer";
 import DefaultErrorMessage from "../../../errorBoundary/defaultErrorMessage";
-import { CartProduct } from "../../../models/CartProduct";
 import { Product } from "../../../models/Product";
 import { GET_LOCAL_CURRENCY } from "../../../operations/queries";
 import Loading from "../../../pages/loading";
@@ -24,9 +23,10 @@ function HomeContainer() {
   });
 
   const addGoodToCartHandler = useCallback(
-    (item: CartProduct) => {
+    (item: Product) => {
       if (item.inStock) {
-        cartService.setItemAmountUp(item);
+        const cartItem = cartProductMapper(item);
+        cartService.setItemAmountUp(cartItem);
         updateCartItems();
       }
     },
@@ -36,13 +36,9 @@ function HomeContainer() {
   if (error && !loading && !data) return <DefaultErrorMessage />;
   if (loading) return <Loading />;
 
-  const renderData = data.category.products.map((d: Product) =>
-    cartProductMapper(d)
-  );
-
   return (
     <Home
-      products={renderData}
+      products={data.category.products}
       categoryName={params.categoryName}
       currentCurrency={currentCurrency.data.currency}
       addGoodToCart={addGoodToCartHandler}

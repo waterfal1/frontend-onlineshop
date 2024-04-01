@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 
 import cart from "../../../assets/cart.svg";
-import { CartProduct } from "../../../models/CartProduct";
+import { Product } from "../../../models/Product";
 import { CurrencyReConverter } from "../../../utils/currencyEnum";
 
 import "./styles.css";
@@ -10,8 +10,8 @@ import "./styles.css";
 type Props = {
   categoryName: string;
   currentCurrency: string;
-  products: CartProduct[];
-  addGoodToCart: (item: CartProduct) => void;
+  products: Product[];
+  addGoodToCart: (item: Product) => void;
 };
 
 function Home(props: Props) {

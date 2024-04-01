@@ -6,7 +6,7 @@ import { CartProduct } from "../../../models/CartProduct";
 import { Product } from "../../../models/Product";
 import { useUpdateCart } from "../../../services/useUpdateCartItems";
 import { cartProductMapper } from "../../home/mappers";
-import GoodProperties from "../components/goodProperties/selectProperties";
+import GoodProperties from "../components/goodProperties/goodProperties";
 
 type Props = {
   product: Product;

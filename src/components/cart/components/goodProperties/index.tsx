@@ -46,7 +46,7 @@ function GoodProperties(props: Props) {
                 <p className="goods-attribute"> {key}:</p>
 
                 <div className="goods-attribute-row">
-                  {value.map((item, index) => {
+                  {value.map((item) => {
                     return (
                       <div
                         key={item.id + item.value}

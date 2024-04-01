@@ -1,3 +1,3 @@
-import GoodsContainer from "./containers/goodsContainer";
+import GoodContainer from "./containers/GoodContainer";
 
-export default GoodsContainer;
+export default GoodContainer;
