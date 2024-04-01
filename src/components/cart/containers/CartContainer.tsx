@@ -5,7 +5,7 @@ import { useMatch } from "react-router-dom";
 import { cartService } from "../../../businessLayer";
 import { CartProduct } from "../../../models/CartProduct";
 import { GET_LOCAL_CURRENCY } from "../../../operations/queries";
-import Cart from "../components";
+import Cart from "../components/cart";
 
 function CartContainer() {
   const currentCurrency = useQuery(GET_LOCAL_CURRENCY);
@@ -60,6 +60,7 @@ function CartContainer() {
       setPreviousImage={setPreviousImage}
       setCartItems={setCartItems}
       setNextImage={setNextImage}
+      updateComponent={updateComponent}
     />
   );
 }

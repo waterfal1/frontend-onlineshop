@@ -1,15 +1,15 @@
 import React, { Dispatch, SetStateAction } from "react";
 import { Link, Outlet } from "react-router-dom";
 
-import logo from "../../../assets/a-logo.svg";
-import cartTop from "../../../assets/cartTop.svg";
-import { CustomLink } from "../../customLink";
-import { CurrencyReConverter } from "../../../utils/currencyEnum";
-import { CartProduct } from "../../../models/CartProduct";
-import { Product } from "../../../models/Product";
-import SelectPropertiesContainer from "../../sharedComponents/selectProperties/containers/selectPropertiesContainer";
-import PriceComponent from "../../sharedComponents/price";
-import CountCost from "../../../services/countCost";
+import logo from "../../../../assets/a-logo.svg";
+import cartTop from "../../../../assets/cartTop.svg";
+import { CartProduct } from "../../../../models/CartProduct";
+import { Product } from "../../../../models/Product";
+import CountCost from "../../../../services/countCost";
+import { CurrencyReConverter } from "../../../../utils/currencyEnum";
+import { CustomLink } from "../../../customLink";
+import PriceComponent from "../../../sharedComponents/price";
+import CartItemsContainer from "../../containers/cartItemsContainer";
 
 import "./styles.css";
 
@@ -103,8 +103,9 @@ function Header(props: Props) {
                         className="cart-window-container"
                       >
                         <div className="window-first-container">
-                          <SelectPropertiesContainer
+                          <CartItemsContainer
                             product={item}
+                            key={item.id + index}
                             isSelectAvailable={false}
                             isAddToCartAvailable={false}
                             price={<PriceComponent prices={item.prices} />}

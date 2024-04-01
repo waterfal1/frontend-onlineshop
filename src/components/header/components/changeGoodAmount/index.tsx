@@ -1,8 +1,9 @@
 import React from "react";
 
 import { CartProduct } from "../../../../models/CartProduct";
+import { Product } from "../../../../models/Product";
 
-import "./styles.css";
+// import "./styles.css";
 
 type Props = {
   good: CartProduct;

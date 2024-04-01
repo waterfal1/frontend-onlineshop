@@ -8,10 +8,7 @@ export const increaseCartItem = (
 ) => {
   setCartItems((state) => {
     return state.map((cartItem: CartProduct) => {
-      if (
-        cartItem.id === item.id &&
-        _.isEqual(item.attributes, cartItem.attributes)
-      ) {
+      if (cartItem.id === item.id && _.isEqual(item.values, cartItem.values)) {
         return { ...cartItem, quantity: cartItem.quantity + 1 };
       }
       return cartItem;
@@ -25,10 +22,7 @@ export const decreaseCartItem = (
 ) => {
   setCartItems((state) => {
     const updatedCartItems = state.map((cartItem: CartProduct) => {
-      if (
-        cartItem.id === item.id &&
-        _.isEqual(item.attributes, cartItem.attributes)
-      ) {
+      if (cartItem.id === item.id && _.isEqual(item.values, cartItem.values)) {
         const newQuantity = Math.max(cartItem.quantity - 1, 0);
         return { ...cartItem, quantity: newQuantity };
       }

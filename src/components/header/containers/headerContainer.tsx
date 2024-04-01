@@ -10,7 +10,7 @@ import { mutations } from "../../../operations/mutations";
 import { GET_LOCAL_CURRENCY } from "../../../operations/queries";
 import { CurrencyConverter } from "../../../utils/currencyEnum";
 import { CustomLink } from "../../customLink";
-import Header from "../components/header";
+import Header from "../components/header/header";
 
 function HeaderContainer() {
   const { data, loading, error } = useQuery(GET_PARTIAL_CATEGORY_DATA);

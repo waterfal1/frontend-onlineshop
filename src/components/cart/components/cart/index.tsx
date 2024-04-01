@@ -1,9 +1,9 @@
 import React, { Dispatch, SetStateAction } from "react";
 
-import { CartProduct } from "../../../models/CartProduct";
-import countCost from "../../../services/countCost";
-import PriceComponent from "../../sharedComponents/price";
-import SelectPropertiesContainer from "../../sharedComponents/selectProperties";
+import { CartProduct } from "../../../../models/CartProduct";
+import countCost from "../../../../services/countCost";
+import PriceComponent from "../../../sharedComponents/price";
+import GoodPropertiesContainer from "../../containers/GoodPropertiesContainer";
 
 import "./styles.css";
 
@@ -14,6 +14,7 @@ type Props = {
   setPreviousImage: (item: CartProduct) => void;
   setCartItems: Dispatch<SetStateAction<CartProduct[]>>;
   setNextImage: (item: CartProduct) => void;
+  updateComponent: () => void;
 };
 
 function Cart(props: Props) {
@@ -24,6 +25,7 @@ function Cart(props: Props) {
     setPreviousImage,
     setNextImage,
     setCartItems,
+    updateComponent,
   } = props;
   return (
     <>
@@ -35,11 +37,11 @@ function Cart(props: Props) {
           cartItems.map((item: CartProduct, index: number) => {
             return (
               <div key={item.id + index} className="cart-common-container">
-                <SelectPropertiesContainer
+                <GoodPropertiesContainer
                   product={item}
                   price={<PriceComponent prices={item.prices} />}
-                  isAddToCartAvailable={false}
                   setCartItems={setCartItems}
+                  updateComponent={updateComponent}
                 />
 
                 <div className="cart-third-flex-element">

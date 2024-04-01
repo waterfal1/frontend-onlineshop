@@ -1,3 +1,3 @@
-import CartContainer from "./containers/cartContainer";
+import CartContainer from "./containers/CartContainer";
 
 export default CartContainer;

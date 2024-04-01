@@ -1,16 +1,15 @@
 import React, { useCallback } from "react";
 
-import { CartProduct } from "../../../../models/CartProduct";
-import ChangeGoodAmount from "../components";
+import { CartProduct } from "../../../models/CartProduct";
+import GoodAmount from "../components/goodAmount";
 
 type Props = {
   good: CartProduct;
-  adjustGoodAmount: boolean;
   increaseCartItem: (item: CartProduct) => void;
   decreaseCartItem: (item: CartProduct) => void;
 };
 
-function ChangeGoodAmountContainer(props: Props) {
+function GoodAmountContainer(props: Props) {
   const { good, decreaseCartItem, increaseCartItem } = props;
 
   const setProductAmountUp = useCallback(
@@ -28,7 +27,7 @@ function ChangeGoodAmountContainer(props: Props) {
   );
 
   return (
-    <ChangeGoodAmount
+    <GoodAmount
       good={good}
       setProductAmountUp={setProductAmountUp}
       setProductAmountDown={setProductAmountDown}
@@ -36,4 +35,4 @@ function ChangeGoodAmountContainer(props: Props) {
   );
 }
 
-export default React.memo(ChangeGoodAmountContainer);
+export default React.memo(GoodAmountContainer);

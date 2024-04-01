@@ -1,14 +1,14 @@
 import React from "react";
 
-import { CartProduct } from "../../../models/CartProduct";
-import PriceComponent from "../../sharedComponents/price";
-import SelectPropertiesContainer from "../../sharedComponents/selectProperties";
+import { Product } from "../../../../models/Product";
+import PriceComponent from "../../../sharedComponents/price";
+import GoodPropertiesContainer from "../../containers/GoodPropertiesContainer";
 
 import "./styles.css";
 
 type Props = {
   imageIndex: number;
-  product: CartProduct;
+  product: Product;
   changeImage: (index: number) => void;
 };
 
@@ -36,7 +36,7 @@ function Goods(props: Props) {
           />
         </div>
 
-        <SelectPropertiesContainer
+        <GoodPropertiesContainer
           product={product}
           withDescription={true}
           adjustGoodAmount={false}

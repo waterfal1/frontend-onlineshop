@@ -1,4 +1,4 @@
-import { CartAttribute } from "./Attribute";
+import { AttributeItem } from "./AttributeItem";
 import { Price } from "./Price";
 export interface CartProduct {
   id: string;
@@ -9,6 +9,7 @@ export interface CartProduct {
   inStock: boolean;
   description: string;
   activeImageIndx: number;
-  attributes: CartAttribute[];
+  attributes: { [key: string]: AttributeItem[] };
+  values: { [key: string]: string };
   quantity: number;
 }
