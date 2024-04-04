@@ -1,6 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
 
+a {
+  color: unset;
+  }
+
 .cart-name {
   justify-content: flex-start;
   margin-top: 160px;
@@ -33,27 +37,6 @@
   height: 100%;
 }
 
-.cart-goods-container {
-  display: flex;
-  box-sizing: border-box;
-  flex-direction: column;
-  width: 70%;
-  padding: 20px 20px 20px 0;
-
-  .cart-first-text {
-    font-family: Raleway, sans-serif;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 30px;
-    line-height: 27px;
-    color: #1D1F22;
-    padding-bottom: 16px;
-  }
-}
-
-a {
-color: unset;
-}
 
 .weight-normal {
   font-style: normal !important;
@@ -72,10 +55,6 @@ color: unset;
   font-style: normal;
   font-weight: normal;
   line-height: 18px;
-}
-
-.cart-pointer {
-  cursor: pointer
 }
 
 .cart-attributes {
@@ -115,16 +94,6 @@ color: unset;
   border: 1px solid gray;
   color: white;
   background: black;
-}
-
-
-.cart-center-flex-element {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-  width: 10%;
 }
 
 .cart-third-flex-element {

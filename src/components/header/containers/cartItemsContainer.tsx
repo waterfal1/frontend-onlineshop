@@ -10,11 +10,7 @@ import CartItems from "../components/cartItems";
 
 type Props = {
   product: CartProduct;
-  isAddToCartAvailable?: boolean;
   price?: React.ReactNode;
-  isSelectAvailable?: boolean;
-  adjustGoodAmount?: boolean;
-  withDescription?: boolean;
   setCartItems?: Dispatch<SetStateAction<CartProduct[]>>;
 };
 

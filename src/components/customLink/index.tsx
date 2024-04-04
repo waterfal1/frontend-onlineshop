@@ -16,14 +16,8 @@ const CustomLink = ({ children, to, ...props }: Props) => {
 
   return (
     <Link to={to} {...props}>
-      <li className="nav-text_row">
-        <div
-          className={
-            match ? "navbar-link-block text-active" : "navbar-link-block"
-          }
-        >
-          {children}
-        </div>
+      <li className="header-leftcontent__link">
+        <div className={match && "active-text"}>{children}</div>
       </li>
     </Link>
   );

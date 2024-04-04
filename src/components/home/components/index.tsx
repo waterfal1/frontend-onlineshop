@@ -19,7 +19,7 @@ function Home(props: Props) {
 
   return (
     <>
-      <div className="category-name">{categoryName}</div>
+      <div className="category-name">{categoryName?.toUpperCase()}</div>
       <main>
         <div className="category-block-on-page">
           {products.map((item) => (

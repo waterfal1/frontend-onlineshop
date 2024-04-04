@@ -41,7 +41,7 @@ function GoodProperties(props: Props) {
             return (
               <div
                 key={product.id + "_" + key + "_" + value}
-                className="attributes-columns"
+                className="good-attributes"
               >
                 <p className="goods-attribute"> {key}:</p>
 

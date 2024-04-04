@@ -65,6 +65,23 @@ function HeaderContainer() {
     updateCartItems();
   }, [updateCartItems]);
 
+  const handleDocumentClick = (event: MouseEvent) => {
+    const target = event.target as HTMLElement;
+    if (
+      target.closest(".currency") === null &&
+      target.closest(".currency__list") === null
+    ) {
+      setIsCurrencyOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.body.addEventListener("click", handleDocumentClick);
+    return () => {
+      document.body.removeEventListener("click", handleDocumentClick);
+    };
+  }, []);
+
   if (error) return <DefaultErrorMessage />;
   if (loading) return null;
 

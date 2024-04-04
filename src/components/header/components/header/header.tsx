@@ -45,105 +45,93 @@ function Header(props: Props) {
     <>
       <header>
         {isCartOpen ? (
-          <div onClick={cartVisibilityHandler} className="dark-side" />
+          <div onClick={cartVisibilityHandler} className="header__darktheme" />
         ) : null}
-        <nav className="header_bar">
-          <ul className="nav-list">
+        <nav className="header">
+          <ul>
             {navbarLinks()}
             <CustomLink to={`/cart`}>CART</CustomLink>
           </ul>
-          <Link to="/">
-            <img src={logo} alt="Home" />
-          </Link>
-          <div className="currency-icons">
-            <div className="column-container">
-              <div className="currency-container" onClick={currencyVisibility}>
+          <div className="header-centercontent">
+            <Link to="/">
+              <img src={logo} alt="Home" />
+            </Link>
+          </div>
+          <div className="header-rightcontent">
+            <div className="header-rightcontent-currency">
+              <div className="currency" onClick={currencyVisibility}>
                 {CurrencyReConverter[currentCurrency]}
-                <div className="arrow-down" />
+                <div className={`arrow ${isCurrencyOpen ? "down" : "up"}`} />
               </div>
 
-              {isCurrencyOpen && (
-                <div className="currency-list">
-                  {products[0].prices.map(
-                    (currency: { currency: string }, index: number) => (
-                      <div
-                        key={index}
-                        onClick={() => changeCurrency(String(index))}
-                      >
-                        <span id={String(index)}>
-                          {CurrencyReConverter[currency.currency]}
-                        </span>
-                        {currency.currency}
-                      </div>
-                    )
-                  )}
-                </div>
-              )}
-            </div>
-            <img
-              onClick={cartVisibilityHandler}
-              className="a-number-of"
-              src={cartTop}
-              alt="Cart"
-            />
-            {cartItems.length > 0 ? (
-              <div className="number">{cartItems.length}</div>
-            ) : null}
-            {isCartOpen && (
-              <div className="cart-window">
-                <p className="cart-window-bag">
-                  <strong>My Bag,</strong>
-                  {cartItems.length} items
-                </p>
-                {cartItems &&
-                  cartItems.map((item: CartProduct, index) => {
-                    return (
-                      <div
-                        key={item.id + "_" + index}
-                        className="cart-window-container"
-                      >
-                        <div className="window-first-container">
-                          <CartItemsContainer
-                            product={item}
-                            key={item.id + index}
-                            isSelectAvailable={false}
-                            isAddToCartAvailable={false}
-                            price={<PriceComponent prices={item.prices} />}
-                            setCartItems={setCartItems}
-                          />
-                        </div>
-                        <div className="cart-window-last-flex-element">
-                          <img
-                            className="cart-window-img"
-                            src={item.gallery[0]}
-                            alt="picture1"
-                          />
-                        </div>
-                      </div>
-                    );
-                  })}
-
-                <div className="cart-window-total-cost">
-                  <p>Total</p>
-                  <p>{CountCost(currentCurrency)}</p>
-                </div>
-                <div className="cart-window-buttons">
-                  <Link to="/cart">
-                    <button
-                      onClick={cartVisibilityHandler}
-                      className="cart-window-view-btn"
+              <div
+                className={`currency__list ${
+                  isCurrencyOpen && "currency__list_active"
+                }`}
+              >
+                {products[0].prices.map(
+                  (currency: { currency: string }, index: number) => (
+                    <div
+                      key={index}
+                      onClick={() => changeCurrency(String(index))}
                     >
-                      {" "}
-                      VIEW BAG
-                    </button>
-                  </Link>
-                  <button className="cart-window-checkout-btn">
-                    {" "}
-                    CHECK OUT
-                  </button>
-                </div>
+                      <span id={String(index)}>
+                        {CurrencyReConverter[currency.currency]}
+                      </span>
+                      {currency.currency}
+                    </div>
+                  )
+                )}
               </div>
-            )}
+            </div>
+            <div className="header-carticon">
+              <img onClick={cartVisibilityHandler} src={cartTop} alt="Cart" />
+              {cartItems.length > 0 ? (
+                <div className="header-carticon__number">
+                  {cartItems.length}
+                </div>
+              ) : null}
+            </div>
+
+            <div
+              className={`header-cartwindow ${
+                isCartOpen && "header-cartwindow_active"
+              }`}
+            >
+              <p className="header-cartwindow-title">
+                <strong>My Bag,</strong> {cartItems.length} items
+              </p>
+
+              {cartItems.map((item: CartProduct, index) => {
+                return (
+                  <CartItemsContainer
+                    product={item}
+                    key={item.id + "_" + index}
+                    price={<PriceComponent prices={item.prices} />}
+                    setCartItems={setCartItems}
+                  />
+                );
+              })}
+
+              <div className="header-cartwindow__totalcost">
+                <p>Total</p>
+                <p>{CountCost(currentCurrency)}</p>
+              </div>
+              <div className="header-cartwindow-buttons">
+                <Link to="/cart">
+                  <button
+                    onClick={cartVisibilityHandler}
+                    className="header-cartwindow-buttons__viewbag "
+                  >
+                    VIEW BAG
+                  </button>
+                </Link>
+                <button className="header-cartwindow-buttons__checkout">
+                  {" "}
+                  CHECK OUT
+                </button>
+              </div>
+            </div>
           </div>
         </nav>
       </header>
