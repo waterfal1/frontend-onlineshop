@@ -20,59 +20,57 @@ function GoodProperties(props: Props) {
     props;
 
   return (
-    <>
-      <div className="cart-goods-container">
-        <div className="goods-description">
-          <NavLink to={`/${product.category}/${product.id}`}>
-            <p className={"goods-name"}>{product.name}</p>
-            <p className={"goods-name weight-normal"}>{product.id}</p>
-          </NavLink>
-          {product.attributes.map((attr: Attribute, attrIndex: number) => {
-            return (
-              <div
-                key={product.id + attr.id + attrIndex}
-                className="attributes-columns"
-              >
-                <p className="goods-attribute"> {attr.name}:</p>
+    <div className="good-properties">
+      <p className={"good__name"}>{product.name}</p>
+      <p className={"good__name_normal"}>{product.id}</p>
+      {product.attributes.map((attr: Attribute, attrIndex: number) => {
+        return (
+          <div key={product.id + attr.id + attrIndex}>
+            <p className="good__name_normal"> {attr.name}:</p>
 
-                <div className="goods-attribute-row">
-                  {attr.items.map((item, index) => {
-                    return (
-                      <div
-                        key={item.id + item.value}
-                        style={{
-                          background: item.value,
-                          color: item.value,
-                          border: `30px solid ${item.value}`,
-                          boxShadow: "0 0 4px 0 rgba(50, 50, 50, 1)",
-                        }}
-                        onClick={() => selectAttribute(attrIndex, index)}
-                        className={`goods-attribute-box ${
-                          selectedAttributes[attrIndex] === index
-                            ? "goods-selected"
-                            : ""
-                        } pointer`}
-                      >
-                        {item.value}
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            );
-          })}
-          {price}
-          <button
-            onClick={() => addToCart(product)}
-            disabled={!product.inStock}
-            className="add-to-cart-btn pointer"
-          >
-            ADD TO CART
-          </button>
-          {parse(product.description)}
-        </div>
+            <div className="good-attribute">
+              {attr.items.map((item, index) => {
+                return (
+                  <div
+                    key={item.id + item.value}
+                    style={{
+                      background: item.value,
+                      color: item.value,
+                      border: `20px solid ${item.value}`,
+                      boxShadow: "0 0 4px 0 rgba(50, 50, 50, 1)",
+                    }}
+                    onClick={() => selectAttribute(attrIndex, index)}
+                    className={`good-attribute__item ${
+                      selectedAttributes[attrIndex] === index
+                        ? "good-attribute__item_selected"
+                        : ""
+                    }`}
+                  >
+                    {CSS.supports("color", item.value) ? "" : item.value}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        );
+      })}
+      {price}
+      <div className="good-toCart">
+        <button
+          onClick={() => addToCart(product)}
+          disabled={!product.inStock}
+          className={
+            product.inStock
+              ? "good-toCart__button"
+              : "good-toCart__button_inActive"
+          }
+        >
+          ADD TO CART
+        </button>
       </div>
-    </>
+      <br />
+      {parse(product.description)}
+    </div>
   );
 }
 

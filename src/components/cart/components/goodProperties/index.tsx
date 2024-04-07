@@ -53,16 +53,16 @@ function GoodProperties(props: Props) {
                         style={{
                           background: item.value,
                           color: item.value,
-                          border: `30px solid ${item.value}`,
+                          border: `20px solid ${item.value}`,
                           boxShadow: "0 0 4px 0 rgba(50, 50, 50, 1)",
                         }}
                         onClick={() => selectAttribute(product, key, item)}
-                        className={`goods-attribute-box ${
+                        className={`good-attribute__item ${
                           product.values[key] === item.displayValue ||
                           product.values[key] === item.value
                             ? "goods-selected"
                             : ""
-                        } pointer`}
+                        }`}
                       >
                         {item.value}
                       </div>
@@ -75,7 +75,6 @@ function GoodProperties(props: Props) {
           {price}
         </div>
       </div>
-
       <GoodAmountContainer
         good={product}
         increaseCartItem={increaseCartItem}

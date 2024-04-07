@@ -15,17 +15,17 @@ function ChangeGoodAmount(props: Props) {
 
   return (
     <>
-      <div className="goodamount">
+      <div className="goodAmount">
         <button
           onClick={() => setProductAmountUp(good)}
-          className="goodamount__counterbutton"
+          className="goodamount__counterButton"
         >
           +
         </button>
         {good.quantity}
         <button
           onClick={() => setProductAmountDown(good)}
-          className="goodamount__counterbutton"
+          className="goodamount__counterButton"
         >
           -
         </button>

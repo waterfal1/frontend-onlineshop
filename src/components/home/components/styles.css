@@ -1,196 +1,90 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600&display=swap');
 
-.category-name {
+.home {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.home__category {
+  height: 100px;
+  grid-column: 1 / -1;
   font-size: 42px;
   margin-top: 40px;
   padding-left: 40px;
 }
 
-.category-block-on-page {
-  display: flex;
-  flex-wrap: wrap;
-  padding: 0 100px 30px 100px;
+.home-goods {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  padding: 0 40px;
+  grid-gap: 30px;
+  justify-items: center;
 }
 
-.product-card {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-sizing: border-box;
-  margin-top: 50px;
+.home-goods__image {
+  object-fit: contain;
+  max-height: 300px;
+  min-width: 350px;
+  max-width: 350px;
 }
 
-.on-hover-cart {
-  position:absolute;
-  bottom: 40px;
-  right: 30px;
-  cursor: pointer;
-  display:none;
-}
-
-.not-in-stock {
-  opacity: 0.5;
-  background: #FFFFFF;
-  padding: 10px 16px;
-  position: relative;
-}
-.in-stock {
-  padding: 10px 16px;
-  position: relative;
-}
-
-.out-of-stock-text {
-  position: absolute;
-  text-align: center;
-  width: 100%;
+.home-goods_goodName {
+  font-style: normal;
+  font-weight: 600;
   font-size: 24px;
-  right: 0;
-  top: 150px;
-  font-weight: normal;
-  line-height: 160%;
-  color: #8D8F9A;
-  font-family: Raleway, sans-serif;
+  color: #1D1F22;
 }
 
-.category-block-on-page .product-card:hover .on-hover-cart {
+.home-goods__cart {
+  position:absolute;
+  right: 0px;
+  bottom: 10px;
+  display: none;
+  cursor: pointer;
+}
+
+.inStock {
+  position: relative;
+  padding: 20px;
+  align-items: center;
+}
+
+.home-goods__good:hover .home-goods__cart {
   display:block;
 }
 
-.category-block-on-page .product-card:hover{
-  -webkit-transform: scale(1.01);
-  -moz-transform: scale(1.01);
-  -o-transform: scale(1.01);
+.home-goods__good:hover .home-goods__cart {
+  display:block;
+}
+
+.notInStock {
+  opacity: 0.5;
+  padding: 20px;
+  background: #FFFFFF;
+  position: relative;
+}
+
+.outOfStock {
+  position: absolute;
+  width: 100%;
+  top: 150px;
+  text-align: center;
+  font-size: 24px;
+  font-weight: normal;
+  color: #8D8F9A;
+}
+
+.home-goods__good:hover {
+  -webkit-transform: scale(1.02);
+  -moz-transform: scale(1.02);
+  -o-transform: scale(1.02);
   box-shadow: 0 4px 35px rgba(168, 172, 176, 0.19);
   background: #FFFFFF;
 }
 
-.goods-image  {
-  display: flex;
-  position: relative;
-  object-fit: contain;
-  flex-direction: column;
-  height: 300px;
-  width: 350px;
-  padding: 5px 0;
-}
-
-.product-card .goods-name {
-  font-style: $normalText;
-  font-weight: 300;
-  padding-top: 24px;
-  font-size: 18px;
-  line-height: 160%;
-  font-family: Raleway, sans-serif;
-}
-
-.goods-cost {
-  font-family: Raleway, sans-serif;
+.home-goods_cost {
   font-style: normal;
   font-weight: 500;
   font-size: 18px;
-  line-height: 160%;
   color: #1D1F22;
-}
-
-.product-card a {
-  text-decoration: none;
-}
-
-.pages-buttons {
-  display: flex;
-  padding: 30px 100px;
-  gap: 30px;
-  justify-content: center;
-}
-
-.pages-buttons .btn {
-  width: 100px;
-}
-
-.black {
-  color: white;
-}
-
-.grey {
-  background-color: white;
-  color: grey;
-}
-
-@media screen and (max-width: 1920px){
-  .product-card {
-    width: 25%;
-  }
-}
-
-
-@media screen and (max-width: 1600px){
-  .product-card {
-    width: 33.333%;
-  }
-}
-
-@media screen and (max-width: 1300px){
-  .product-card {
-    width: 50%;
-  }
-}
-
-@media screen and (max-width: 960px){
-  .out-of-stock-text {
-    width: 100%;
-  }
-  .goods-image  {
-    height: 300px;
-    width: 100%;
-  }
-}
-
-@media screen and (max-width: 768px){
-  .out-of-stock-text {
-    position: absolute;
-    text-align: center;
-    color: rgba(105, 105, 105, 0.9);
-    width: 100%;
-    top: 40%;
-  }
-  .category-block-on-page {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    padding: 0 10vw;
-  }
-
-  .product-card {
-    display: flex;
-    justify-content: center;
-    width: 90vw;
-  }
-
-  .goods-image  {
-    height: 350px;
-    object-fit: contain;
-    width: 76vw;
-    padding: 0 2.5vw;
-  }
-
-  .category-name {
-    padding-left: 12.5vw;
-  }
-
-  .not-in-stock {
-    padding: 10px 0;
-  }
-  .in-stock {
-    padding: 10px 0;
-  }
-
-  .product-card p {
-    padding-left: 2.5vw;
-  }
-}
-
-@media screen and (max-width: 480px) {
-  .on-hover-cart {
-    right: 5px;
-  }
 }

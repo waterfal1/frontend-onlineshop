@@ -12,23 +12,21 @@ function ChangeGoodAmount(props: Props) {
   const { good, setProductAmountDown, setProductAmountUp } = props;
 
   return (
-    <>
-      <div className="cart-center-flex-element">
-        <button
-          onClick={() => setProductAmountUp(good)}
-          className="cart-window-counter-btn"
-        >
-          +
-        </button>
-        {good.quantity}
-        <button
-          onClick={() => setProductAmountDown(good)}
-          className="cart-window-counter-btn"
-        >
-          -
-        </button>
-      </div>
-    </>
+    <div className="cart-center-flex-element">
+      <button
+        onClick={() => setProductAmountUp(good)}
+        className="cart-window-counter-btn"
+      >
+        +
+      </button>
+      {good.quantity}
+      <button
+        onClick={() => setProductAmountDown(good)}
+        className="cart-window-counter-btn"
+      >
+        -
+      </button>
+    </div>
   );
 }
 

@@ -15,35 +15,31 @@ type Props = {
 function Goods(props: Props) {
   const { imageIndex, product, changeImage } = props;
   return (
-    <>
-      <div className="goods-page-container">
-        <div className="goods-page-photo-column">
-          {product.gallery.map((item: string, pictureIndex: number) => (
-            <img
-              key={pictureIndex}
-              className="small-img pointer"
-              onClick={() => changeImage(pictureIndex)}
-              src={item}
-              alt="picture1"
-            />
-          ))}
-        </div>
-        <div className="goods-page-main-photo">
+    <div className="good">
+      <div className="good-photoColumn">
+        {product.gallery.map((item: string, pictureIndex: number) => (
           <img
-            className="goods-page-main-photo-flex"
-            src={product.gallery[imageIndex]}
-            alt="picture2"
+            key={pictureIndex}
+            className="good-photoColumn__image"
+            onClick={() => changeImage(pictureIndex)}
+            src={item}
+            alt=""
           />
-        </div>
-
-        <GoodPropertiesContainer
-          product={product}
-          withDescription={true}
-          adjustGoodAmount={false}
-          price={<PriceComponent prices={product.prices} />}
-        />
+        ))}
       </div>
-    </>
+      <img
+        className="goods__mainPhoto"
+        src={product.gallery[imageIndex]}
+        alt=""
+      />
+
+      <GoodPropertiesContainer
+        product={product}
+        withDescription={true}
+        adjustGoodAmount={false}
+        price={<PriceComponent prices={product.prices} />}
+      />
+    </div>
   );
 }
 

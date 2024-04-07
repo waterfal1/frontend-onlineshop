@@ -28,44 +28,46 @@ function Cart(props: Props) {
     updateComponent,
   } = props;
   return (
-    <>
-      <div className="category-name">{pageName}</div>
+    <div className="home">
+      <div className="home__category">{pageName?.toUpperCase()}</div>
       <section>
         {cartItems.length === 0 ? (
           <h1 className="cart-name">You cart is empty</h1>
         ) : (
-          cartItems.map((item: CartProduct, index: number) => {
-            return (
-              <div key={item.id + index} className="cart-common-container">
-                <GoodPropertiesContainer
-                  product={item}
-                  price={<PriceComponent prices={item.prices} />}
-                  setCartItems={setCartItems}
-                  updateComponent={updateComponent}
-                />
+          <>
+            {cartItems.map((item: CartProduct, index: number) => {
+              return (
+                <div key={item.id + index} className="cart-good">
+                  <GoodPropertiesContainer
+                    product={item}
+                    price={<PriceComponent prices={item.prices} />}
+                    setCartItems={setCartItems}
+                    updateComponent={updateComponent}
+                  />
 
-                <div className="cart-third-flex-element">
-                  <img
-                    className="cart-small-img"
-                    src={item.gallery[item.activeImageIndx]}
-                    alt="picture1"
-                  />
-                  <div
-                    onClick={() => setPreviousImage(item)}
-                    className="arrow-rev arrow-left-rev pointer"
-                  />
-                  <div
-                    onClick={() => setNextImage(item)}
-                    className="arrow-rev arrow-right-rev pointer"
-                  />
+                  <div className="cart-third-flex-element">
+                    <img
+                      className="cart-small-img"
+                      src={item.gallery[item.activeImageIndx]}
+                      alt="picture1"
+                    />
+                    <div
+                      onClick={() => setPreviousImage(item)}
+                      className="arrow-rev arrow-left-rev pointer"
+                    />
+                    <div
+                      onClick={() => setNextImage(item)}
+                      className="arrow-rev arrow-right-rev pointer"
+                    />
+                  </div>
                 </div>
-              </div>
-            );
-          })
+              );
+            })}
+            <div>Total cost: {countCost(currentCurrency)}</div>
+          </>
         )}
-        Total cost: {countCost(currentCurrency)}
       </section>
-    </>
+    </div>
   );
 }
 

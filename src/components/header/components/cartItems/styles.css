@@ -10,10 +10,12 @@
     align-self: center;
   }
 
-  .good__name {
+  .good__name_small {
     font-family: Raleway, sans-serif;
     font-style: normal;
-    font-weight: 300;
+    font-weight: 600;
+    padding: 10px 0px;
+    font-size: 16px;
     color: #1D1F22;
   }
 
@@ -21,7 +23,8 @@
     font-family: 'Roboto Condensed', sans-serif;
     font-style: normal;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 16px;
+    padding: 10px 0px;
     color: #1D1F22;
   }
 

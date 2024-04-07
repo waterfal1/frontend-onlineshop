@@ -18,43 +18,46 @@ function Home(props: Props) {
   const { categoryName, currentCurrency, products, addGoodToCart } = props;
 
   return (
-    <>
-      <div className="category-name">{categoryName?.toUpperCase()}</div>
+    <div className="home">
+      <div className="home__category">{categoryName?.toUpperCase()}</div>
       <main>
-        <div className="category-block-on-page">
+        <div className="home-goods">
           {products.map((item) => (
-            <div key={item.id} className="product-card">
-              <div className={item.inStock ? "in-stock" : "not-in-stock"}>
-                <NavLink to={`/${item.category}/${item.id}`}>
-                  <img
-                    className="goods-image"
-                    src={item.gallery[0]}
-                    alt="Good"
-                  />
-                  {!item.inStock && (
-                    <div className="out-of-stock-text">Out of Stock</div>
-                  )}
-                  <p className="goods-name">{item.name}</p>
-                  <p className="goods-cost">
-                    {CurrencyReConverter[currentCurrency]}
-                    {
-                      item.prices.find((el) => el.currency === currentCurrency)
-                        ?.amount
-                    }
-                  </p>
-                </NavLink>
+            <div
+              key={item.id}
+              className={`home-goods__good ${
+                item.inStock ? "inStock" : "notInStock"
+              }`}
+            >
+              <NavLink to={`/${item.category}/${item.id}`}>
                 <img
-                  onClick={() => addGoodToCart(item)}
-                  className="on-hover-cart"
-                  src={cart}
-                  alt="Cart"
+                  className="home-goods__image"
+                  src={item.gallery[0]}
+                  alt="Good"
                 />
-              </div>
+                {!item.inStock && (
+                  <div className="outOfStock">Out of Stock</div>
+                )}
+                <p className="home-goods_goodName">{item.name}</p>
+                <p className="home-goods_cost">
+                  {CurrencyReConverter[currentCurrency]}
+                  {
+                    item.prices.find((el) => el.currency === currentCurrency)
+                      ?.amount
+                  }
+                </p>
+              </NavLink>
+              <img
+                onClick={() => addGoodToCart(item)}
+                className="home-goods__cart"
+                src={cart}
+                alt="Cart"
+              />
             </div>
           ))}
         </div>
       </main>
-    </>
+    </div>
   );
 }
 

@@ -5,8 +5,8 @@ import "./styles.css";
 
 function NotFoundPage() {
   return (
-    <div className="container">
-      <div className="row">
+    <div className="notFound">
+      <div>
         <h1>404</h1>
         <h2>UH OH! You{"\u0027"}re lost.</h2>
         <p>

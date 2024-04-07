@@ -1,4 +1,4 @@
-.goodamount__counterbutton {
+.goodamount__counterButton {
     display: flex;
     margin: 16px 0;
     width: 28px;
@@ -11,7 +11,7 @@
   }
 
 
-.goodamount {
+.goodAmount {
     display: flex;
     flex-direction: column;
     align-items: center;

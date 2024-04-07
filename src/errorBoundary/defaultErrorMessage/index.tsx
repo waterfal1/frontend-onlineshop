@@ -5,7 +5,7 @@ import "./styles.css";
 
 function DefaultErrorMessage() {
   return (
-    <div className="container">
+    <div className="error">
       <div className="row">
         <h1>Error</h1>
         <h2>UH OH! You{"\u0027"}re lost.</h2>

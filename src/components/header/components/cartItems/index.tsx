@@ -18,7 +18,7 @@ function CartItems(props: Props) {
   return (
     <div className="header-cartwindow-good">
       <div>
-        <p className={"good__name"}>{product.name}</p>
+        <p className={"good__name_small"}>{product.name}</p>
 
         {Object.entries(product.values).map(([key, value]) => {
           return (
