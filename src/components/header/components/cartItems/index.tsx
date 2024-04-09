@@ -1,7 +1,7 @@
 import React from "react";
 
 import { CartProduct } from "../../../../models/CartProduct";
-import ChangeGoodAmountContainer from "../../containers/changeGoodAmountContainer";
+import ChangeGoodAmountContainer from "../../../sharedComponents/changeGoodAmount/container/changeGoodAmountContainer";
 
 import "./styles.css";
 
@@ -16,7 +16,7 @@ function CartItems(props: Props) {
   const { price, product, increaseCartItem, decreaseCartItem } = props;
 
   return (
-    <div className="header-cartwindow-good">
+    <div className="header-cartWindow-good">
       <div>
         <p className={"good__name_small"}>{product.name}</p>
 

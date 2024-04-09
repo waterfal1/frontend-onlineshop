@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 
 import { AttributeItem } from "../../../../models/AttributeItem";
 import { CartProduct } from "../../../../models/CartProduct";
-import GoodAmountContainer from "../../containers/GoodAmountContainer";
+import ChangeGoodAmountContainer from "../../../sharedComponents/changeGoodAmount";
 
 import "./styles.css";
 
@@ -30,52 +30,48 @@ function GoodProperties(props: Props) {
 
   return (
     <>
-      <div className="cart-goods-container">
-        <div className="goods-description">
-          <NavLink to={`/${product.category}/${product.id}`}>
-            <p className={"goods-name"}>{product.name}</p>
-            <p className={"goods-name weight-normal"}>{product.id}</p>
-          </NavLink>
+      <div className="good-properties">
+        <NavLink to={`/${product.category}/${product.id}`}>
+          <p className={"good__name"}>{product.name}</p>
+          <p className={"good__name_normal"}>{product.id}</p>
+        </NavLink>
 
-          {Object.entries(product.attributes).map(([key, value]) => {
-            return (
-              <div
-                key={product.id + "_" + key + "_" + value}
-                className="good-attributes"
-              >
-                <p className="goods-attribute"> {key}:</p>
+        {Object.entries(product.attributes).map(([key, value]) => {
+          return (
+            <div key={product.id + "_" + key + "_" + value}>
+              <p className="good__name_normal"> {key}:</p>
 
-                <div className="goods-attribute-row">
-                  {value.map((item) => {
-                    return (
-                      <div
-                        key={item.id + item.value}
-                        style={{
-                          background: item.value,
-                          color: item.value,
-                          border: `20px solid ${item.value}`,
-                          boxShadow: "0 0 4px 0 rgba(50, 50, 50, 1)",
-                        }}
-                        onClick={() => selectAttribute(product, key, item)}
-                        className={`good-attribute__item ${
-                          product.values[key] === item.displayValue ||
-                          product.values[key] === item.value
-                            ? "goods-selected"
-                            : ""
-                        }`}
-                      >
-                        {item.value}
-                      </div>
-                    );
-                  })}
-                </div>
+              <div className="good-attribute">
+                {value.map((item) => {
+                  return (
+                    <div
+                      key={item.id + item.value}
+                      style={{
+                        background: item.value,
+                        color: item.value,
+                        border: `20px solid ${item.value}`,
+                        boxShadow: "0 0 4px 0 rgba(50, 50, 50, 1)",
+                      }}
+                      onClick={() => selectAttribute(product, key, item)}
+                      className={`good-attribute__item ${
+                        product.values[key] === item.displayValue ||
+                        product.values[key] === item.value
+                          ? "good-attribute__item_selected"
+                          : ""
+                      }`}
+                    >
+                      {CSS.supports("color", item.value) ? "" : item.value}
+                    </div>
+                  );
+                })}
               </div>
-            );
-          })}
-          {price}
-        </div>
+            </div>
+          );
+        })}
+        {price}
       </div>
-      <GoodAmountContainer
+
+      <ChangeGoodAmountContainer
         good={product}
         increaseCartItem={increaseCartItem}
         decreaseCartItem={decreaseCartItem}

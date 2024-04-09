@@ -1,12 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
-
-.attributes {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-}
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap");
 
 .good-properties {
   display: grid;
@@ -23,7 +17,7 @@
 }
 
 .good-attribute__item {
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
   font-size: 16px;
   margin-top: 16px;
   cursor: pointer;
@@ -63,7 +57,7 @@
   -webkit-border-radius: 6px;
   -o-border-radius: 6px;
   padding: 12px 0px;
-  background: #5ECE7B;
+  background: #5ece7b;
   color: white;
   border: none;
   cursor: pointer;
@@ -74,12 +68,12 @@
   font-weight: 600;
   padding-top: 16px;
   font-size: 30px;
-  color: #1D1F22;
+  color: #1d1f22;
 }
 
 .good__name_normal {
   font-weight: 400;
   font-size: 24px;
   padding-top: 16px;
-  color: #1D1F22;
+  color: #1d1f22;
 }

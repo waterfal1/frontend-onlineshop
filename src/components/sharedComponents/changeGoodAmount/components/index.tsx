@@ -18,14 +18,14 @@ function ChangeGoodAmount(props: Props) {
       <div className="goodAmount">
         <button
           onClick={() => setProductAmountUp(good)}
-          className="goodamount__counterButton"
+          className="goodAmount__counterButton"
         >
           +
         </button>
         {good.quantity}
         <button
           onClick={() => setProductAmountDown(good)}
-          className="goodamount__counterButton"
+          className="goodAmount__counterButton"
         >
           -
         </button>

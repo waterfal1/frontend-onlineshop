@@ -49,7 +49,7 @@ function Cart(props: Props) {
                     <img
                       className="cart-small-img"
                       src={item.gallery[item.activeImageIndx]}
-                      alt="picture1"
+                      alt=""
                     />
                     <div
                       onClick={() => setPreviousImage(item)}

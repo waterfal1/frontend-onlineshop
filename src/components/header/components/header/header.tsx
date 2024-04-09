@@ -45,20 +45,20 @@ function Header(props: Props) {
     <>
       <header>
         {isCartOpen ? (
-          <div onClick={cartVisibilityHandler} className="header__darktheme" />
+          <div onClick={cartVisibilityHandler} className="header__darkTheme" />
         ) : null}
         <nav className="header">
           <ul>
             {navbarLinks()}
             <CustomLink to={`/cart`}>CART</CustomLink>
           </ul>
-          <div className="header-centercontent">
+          <div className="header-centerContent">
             <Link to="/">
               <img src={logo} alt="Home" />
             </Link>
           </div>
-          <div className="header-rightcontent">
-            <div className="header-rightcontent-currency">
+          <div className="header-rightContent">
+            <div className="header-rightContent-currency">
               <div className="currency" onClick={currencyVisibility}>
                 {CurrencyReConverter[currentCurrency]}
                 <div className={`arrow ${isCurrencyOpen ? "down" : "up"}`} />
@@ -84,21 +84,21 @@ function Header(props: Props) {
                 )}
               </div>
             </div>
-            <div className="header-carticon">
+            <div className="header-cartIcon">
               <img onClick={cartVisibilityHandler} src={cartTop} alt="Cart" />
               {cartItems.length > 0 ? (
-                <div className="header-carticon__number">
+                <div className="header-cartIcon__number">
                   {cartItems.length}
                 </div>
               ) : null}
             </div>
 
             <div
-              className={`header-cartwindow ${
-                isCartOpen && "header-cartwindow_active"
+              className={`header-cartWindow ${
+                isCartOpen && "header-cartWindow_active"
               }`}
             >
-              <p className="header-cartwindow-title">
+              <p className="header-cartWindow-title">
                 <strong>My Bag,</strong> {cartItems.length} items
               </p>
 
@@ -113,20 +113,20 @@ function Header(props: Props) {
                 );
               })}
 
-              <div className="header-cartwindow__totalcost">
+              <div className="header-cartWindow__totalCost">
                 <p>Total</p>
                 <p>{CountCost(currentCurrency)}</p>
               </div>
-              <div className="header-cartwindow-buttons">
+              <div className="header-cartWindow-buttons">
                 <Link to="/cart">
                   <button
                     onClick={cartVisibilityHandler}
-                    className="header-cartwindow-buttons__viewbag "
+                    className="header-cartWindow-buttons__viewBag "
                   >
                     VIEW BAG
                   </button>
                 </Link>
-                <button className="header-cartwindow-buttons__checkout">
+                <button className="header-cartWindow-buttons__checkout">
                   {" "}
                   CHECK OUT
                 </button>
