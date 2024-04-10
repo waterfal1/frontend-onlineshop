@@ -40,3 +40,12 @@
   top: 46%;
   transform: rotate(-135deg);
 }
+
+.cart-totalCost {
+  font-family: "Roboto Condensed", sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 18px;
+  padding: 0px 0px 20px 40px;
+}

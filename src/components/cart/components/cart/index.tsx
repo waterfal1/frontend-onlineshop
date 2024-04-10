@@ -67,7 +67,9 @@ function Cart(props: Props) {
                 </div>
               );
             })}
-            <div>Total cost: {countCost(currentCurrency)}</div>
+            <div className="cart-totalCost">
+              Total cost: {countCost(currentCurrency)}
+            </div>
           </>
         )}
       </section>

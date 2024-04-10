@@ -19,8 +19,6 @@
 }
 
 .good__attribute_name {
-  font-family: "Roboto Condensed", sans-serif;
-  font-style: normal;
   font-weight: bold;
   font-size: 16px;
   padding: 10px 0px;
@@ -29,21 +27,14 @@
 
 .good__attribute_value {
   font-family: "Source Sans Pro", sans-serif;
-  font-style: normal;
-  font-weight: normal;
   display: inline-block;
   padding: 5px;
   font-size: 16px;
-  max-width: 100px;
-  max-height: 30px;
-  border: 1px solid gray;
 }
 
 .good__attribute_selected {
-  border: 1px solid gray;
   color: white;
   background: black;
-  transform: scale(1.15);
 }
 
 .good__img {
