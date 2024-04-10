@@ -41,7 +41,12 @@
   right: 0px;
   bottom: 10px;
   display: none;
+  transition: all 1s ease;
   cursor: pointer;
+}
+
+.home-goods__cart:active {
+  transform: translateY(20px);
 }
 
 .inStock {

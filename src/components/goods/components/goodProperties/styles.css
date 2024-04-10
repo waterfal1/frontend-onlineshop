@@ -62,7 +62,13 @@
   border: none;
   cursor: pointer;
   font-size: 16px;
+  transition: all 1s ease;
 }
+
+.good-toCart__button:active  {
+  transform: translateY(50px);
+}
+
 
 .good__name {
   font-weight: 600;
