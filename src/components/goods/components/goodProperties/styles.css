@@ -8,6 +8,7 @@
   grid-template-columns: 1fr;
 }
 
+
 .good-attribute {
   display: flex;
   flex-wrap: wrap;
@@ -68,7 +69,6 @@
 .good-toCart__button:active  {
   transform: translateY(50px);
 }
-
 
 .good__name {
   font-weight: 600;
