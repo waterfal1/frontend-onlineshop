@@ -1,5 +1,6 @@
 import parse from "html-react-parser";
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 import { Attribute } from "../../../../models/Attribute";
 import { Product } from "../../../../models/Product";

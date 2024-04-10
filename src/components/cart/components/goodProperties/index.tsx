@@ -5,7 +5,7 @@ import { AttributeItem } from "../../../../models/AttributeItem";
 import { CartProduct } from "../../../../models/CartProduct";
 import ChangeGoodAmountContainer from "../../../sharedComponents/changeGoodAmount";
 
-import "./styles.css";
+import "../../../goods/components/goodProperties/styles.css";
 
 type Props = {
   product: CartProduct;

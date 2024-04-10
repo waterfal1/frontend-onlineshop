@@ -1,11 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap");
-
-a {
-  color: unset;
-}
-
-.cart-name {
+.cart__name {
   text-align: center;
   font-weight: bold;
   font-size: 32px;
@@ -16,122 +9,34 @@ a {
   display: grid;
   grid-template-columns: 3fr 1fr 2fr;
   justify-items: center;
+  align-items: center;
   padding: 40px;
 }
 
-.remove-goods {
-  display: flex;
-  align-items: flex-end;
-  padding: 20px 0 20px 60px;
-  box-sizing: border-box;
-  height: 100%;
-}
 
-.weight-normal {
-  font-style: normal !important;
-  font-weight: normal !important;
-}
-
-.cart-box {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid #1d1f22;
-  margin-right: 20px;
-  margin-bottom: 5px;
-  padding: 10px;
-  font-family: Source Sans Pro, sans-serif;
-  font-style: normal;
-  font-weight: normal;
-  line-height: 18px;
-}
-
-.cart-attributes {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-}
-
-.cart-attribute-row {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.cart-goods-padding {
-  padding-top: 10px;
-  font-family: Raleway, sans-serif;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 24px;
-  line-height: 18px;
-  color: #1d1f22;
-}
-
-.cart-goods-attribute {
-  font-family: "Roboto Condensed", sans-serif;
-  padding-top: 12px;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 18px;
-  line-height: 18px;
-  color: #1d1f22;
-}
-
-.cart-selected {
-  box-sizing: border-box;
-  transform: scale(1.2);
-  border: 1px solid gray;
-  color: white;
-  background: black;
-}
-
-.cart-third-flex-element {
+.cart-images {
   position: relative;
-  display: flex;
-  width: 130px;
-  padding: 20px 0;
-  box-sizing: border-box;
-
-  .picture-btn {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-direction: row;
-  }
-
-  .cart-small-img {
-    width: 130px;
-    padding-left: 5px;
-    object-fit: contain;
-  }
 }
 
-.arrow-rev {
+.cart__arrow {
   width: 16px;
-  outline: 0 !important;
   height: 16px;
   border-top: 2px solid grey;
   border-right: 2px solid grey;
+  cursor: pointer;
 }
 
-.arrow-right-rev {
+.cart__arrow_right {
   position: absolute;
   right: 0;
   top: 46%;
   transform: rotate(45deg);
+  cursor: pointer;
 }
 
-.arrow-left-rev {
+.cart__arrow_left {
   position: absolute;
-  left: 10px;
+  left: 0px;
   top: 46%;
   transform: rotate(-135deg);
-  outline: none;
-  background-color: transparent;
-}
-
-@media screen and (max-width: 960px) {
-  .cart-common-container {
-    padding: 0 10vw;
-  }
 }

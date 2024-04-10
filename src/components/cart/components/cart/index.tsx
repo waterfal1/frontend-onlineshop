@@ -32,7 +32,7 @@ function Cart(props: Props) {
       <div className="home__category">{pageName?.toUpperCase()}</div>
       <section>
         {cartItems.length === 0 ? (
-          <h1 className="cart-name">You cart is empty</h1>
+          <h1 className="cart__name">You cart is empty</h1>
         ) : (
           <>
             {cartItems.map((item: CartProduct, index: number) => {
@@ -45,20 +45,24 @@ function Cart(props: Props) {
                     updateComponent={updateComponent}
                   />
 
-                  <div className="cart-third-flex-element">
+                  <div className="cart-images">
                     <img
-                      className="cart-small-img"
+                      className="good__img"
                       src={item.gallery[item.activeImageIndx]}
                       alt=""
                     />
-                    <div
-                      onClick={() => setPreviousImage(item)}
-                      className="arrow-rev arrow-left-rev pointer"
-                    />
-                    <div
-                      onClick={() => setNextImage(item)}
-                      className="arrow-rev arrow-right-rev pointer"
-                    />
+                    {item.gallery.length > 1 && (
+                      <>
+                        <div
+                          onClick={() => setPreviousImage(item)}
+                          className="cart__arrow cart__arrow_left"
+                        />
+                        <div
+                          onClick={() => setNextImage(item)}
+                          className="cart__arrow cart__arrow_right"
+                        />
+                      </>
+                    )}
                   </div>
                 </div>
               );
