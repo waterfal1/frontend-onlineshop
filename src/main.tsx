@@ -19,7 +19,9 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (networkError) console.error(`[Network error]: ${networkError}`);
 });
 
-const httpLink = new HttpLink({ uri: "http://0.0.0.0:4000/" });
+const httpLink = new HttpLink({
+  uri: "https://backendonlineshop-production.up.railway.app/graphql",
+});
 
 export const client = new ApolloClient({
   cache,
