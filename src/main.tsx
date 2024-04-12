@@ -20,7 +20,7 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 });
 
 const httpLink = new HttpLink({
-  uri: "https://backendonlineshop-production.up.railway.app/graphql",
+  uri: "https://backend-online-shop-six.vercel.app/graphql",
 });
 
 export const client = new ApolloClient({
