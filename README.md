@@ -1,8 +1,12 @@
-# React + Vite
+# Prototype of online shop
+Prototype of Online shop frontend using React JS, Vite, Apollo client
+## Overview
+# GraphQL API
+This is the very basic prototype of GraphQL API for an online shop.
+## Overview
+Frontend was implemented primarily as a practical exercise, aimed at refining skills and understanding of the working of GrapQL.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Installation
+To start on your local machine, follow these steps
+1. Install dependencies - "yarn install"
+2. Start the project - `yarn dev` (for development mode)
